@@ -60,9 +60,9 @@
   <nav>
     <h1>Rayan Bashawri's Website</h1>
     <div class="nav-links">
-      <a href="index.html">🏠 Home</a>
-      <a href="about.html">👤 About</a>
+      <a href="index.html">👤 About</a>
       <a href="dashboards.html">📊 Dashboards</a>
+      <a href="resume.html">📄 Resume</a>
       <a href="contact.html">✉️ Contact</a>
       <button class="theme-toggle" id="themeToggle">🌙</button>
     </div>
@@ -78,10 +78,15 @@
 
   <script>
     const t=document.getElementById('themeToggle');
-    if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');t.textContent='☀️';}
-    t.addEventListener('click',()=>{document.body.classList.toggle('dark');
+    if(localStorage.getItem('theme')==='dark'){
+      document.body.classList.add('dark');
+      t.textContent='☀️';
+    }
+    t.addEventListener('click',()=>{
+      document.body.classList.toggle('dark');
       t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
-      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
+      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');
+    });
   </script>
 </body>
 </html>
