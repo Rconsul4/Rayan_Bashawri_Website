@@ -2,127 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Samples – Rayan Bashawri</title>
   <style>
-    :root{ --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8; --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px; --sidebar-w:180px; }
-    body.dark{ --brand:#7bb1ff; --ink:#f4f4f4; --bg1:#121212; --bg2:#1b1b1b; --card:#232323; --shadow:0 8px 20px rgba(0,0,0,.6); }
-    body{ margin:0; font-family:Arial,sans-serif; color:var(--ink); height:100vh; background:linear-gradient(135deg,var(--bg1),var(--bg2)); transition:background .4s,color .4s; }
+    :root {
+      --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8;
+      --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px;
+    }
+    body.dark {
+      --brand:#7bb1ff; --ink:#f4f4f4; --bg1:#121212; --bg2:#1b1b1b;
+      --card:#232323; --shadow:0 8px 20px rgba(0,0,0,.6);
+    }
+    body {
+      margin:0; font-family:Arial,sans-serif; color:var(--ink);
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      transition:background .4s,color .4s;
+    }
 
-    .side-panel{ position:fixed; left:0; top:0; bottom:0; width:var(--sidebar-w); background:var(--brand); color:#fff; display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:flex-end; padding:24px 10px 30px; z-index:50; }
-    .side-panel a{ width:100%; display:flex; align-items:center; justify-content:center; gap:8px; color:#fff; text-decoration:none; font-weight:bold; margin:6px 0; opacity:.95; text-align:center; padding:6px 8px; border-radius:10px; }
-    .side-panel a:hover{ background:rgba(255,255,255,.12); }
-    .ico{ font-size:20px; } .lbl{ font-size:14px; }
+    nav {
+      position:fixed; top:0; left:0; right:0;
+      background:var(--brand); color:#fff;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 20px; box-shadow:0 2px 10px rgba(0,0,0,.12); z-index:50;
+      flex-wrap:wrap;
+    }
+    nav h1 { margin:0; font-size:1.2rem; }
+    .nav-links { display:flex; gap:16px; flex-wrap:wrap; }
+    .nav-links a {
+      color:#fff; text-decoration:none; font-weight:bold; transition:opacity .2s;
+    }
+    .nav-links a:hover { opacity:0.8; }
+    .theme-toggle { background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
 
-    header{ position:fixed; top:0; left:var(--sidebar-w); right:0; background:var(--brand); color:#fff; text-align:center; padding:16px 0; z-index:40; box-shadow:0 2px 10px rgba(0,0,0,.12); }
-    main{ margin-left:var(--sidebar-w); padding:100px 16px 16px; height:100vh; overflow:auto; max-width:1100px; }
+    main {
+      padding:100px 20px; max-width:1100px; margin:auto;
+    }
+    .grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:18px;
+    }
+    .card {
+      background:var(--card); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:10px; cursor:pointer;
+      transition:transform .15s, box-shadow .15s;
+    }
+    .card:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.1); }
+    .thumb { width:100%; border-radius:10px; object-fit:cover; }
+    .title { padding:8px 4px; font-weight:bold; text-align:center; }
 
-    .toolbar{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px; display:flex; gap:10px; align-items:center; margin:0 auto 18px; max-width:1100px; }
-    select,button{ padding:10px 12px; border-radius:10px; border:1px solid #cfd6de; font-family:inherit; }
-    .view-btn{ background:var(--brand); color:#fff; border:none; font-weight:bold; cursor:pointer; }
-
-    .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:16px; }
-    .card{ background:var(--card); border-radius:12px; box-shadow:var(--shadow); overflow:hidden; cursor:pointer; transition:transform .15s, box-shadow .15s, background .4s; }
-    .card:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.1); }
-    .thumb{ aspect-ratio:16/10; width:100%; object-fit:cover; display:block; background:#e6edf5; }
-    .title{ padding:10px 12px; font-weight:bold; }
-
-    .theme-toggle{ position:fixed; top:16px; right:16px; background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; z-index:60; }
-
-    .modal{ position:fixed; left:50%; top:50%; transform:translate(-50%,-50%) scale(.98); width:min(95vw,1100px); max-height:90vh; background:var(--card); border-radius:12px; box-shadow:var(--shadow); padding:10px; opacity:0; visibility:hidden; transition:opacity .25s, visibility .25s, transform .25s, background .4s; z-index:70; display:flex; flex-direction:column; gap:8px; }
-    .modal.show{ opacity:1; visibility:visible; transform:translate(-50%,-50%) scale(1); }
-    .modal-header{ display:flex; justify-content:space-between; align-items:center; padding:6px 8px 0 8px; }
-    .modal-title{ font-weight:bold; color:var(--ink); }
-    .close-x{ background:transparent; border:none; font-size:22px; cursor:pointer; color:var(--ink); }
-    .modal-body{ overflow:auto; padding:6px; border-radius:8px; display:grid; place-items:center; }
-    .modal-body img{ width:100%; height:auto; border-radius:8px; }
-    .modal-actions{ display:flex; justify-content:flex-end; gap:8px; padding:0 8px 4px; }
-    .btn{ padding:8px 12px; border-radius:8px; border:1px solid var(--brand); background:var(--brand); color:#fff; cursor:pointer; text-decoration:none; font-weight:bold; }
-    .btn.secondary{ background:transparent; color:var(--brand); }
+    .modal {
+      position:fixed; inset:0; display:flex; justify-content:center; align-items:center;
+      background:rgba(0,0,0,0.6); visibility:hidden; opacity:0; transition:opacity .3s;
+    }
+    .modal.show { visibility:visible; opacity:1; }
+    .modal-content {
+      background:var(--card); border-radius:12px; padding:12px; width:min(95vw,1000px);
+      box-shadow:var(--shadow);
+    }
+    .modal-content img { width:100%; border-radius:8px; }
+    .close { background:var(--brand); color:#fff; border:none; padding:6px 10px; border-radius:8px; float:right; cursor:pointer; }
 
     @media (max-width:700px){
-      :root{ --sidebar-w:64px; }
-      .lbl{ display:none; } .ico{ font-size:22px; }
-      header{ left:var(--sidebar-w); font-size:14px; }
-      main{ margin-left:var(--sidebar-w); padding:80px 10px 16px; }
+      nav { flex-direction:column; align-items:flex-start; padding:10px; }
+      .nav-links { gap:12px; width:100%; justify-content:center; margin-top:8px; }
+      nav h1 { font-size:1rem; }
     }
   </style>
 </head>
 <body>
 
-  <nav class="side-panel" aria-label="Site">
-    <a href="index.html" title="Home"><span class="ico">🏠</span><span class="lbl">Home</span></a>
-    <a href="about.html" title="About Me"><span class="ico">👤</span><span class="lbl">About Me</span></a>
-    <a href="contact.html" title="Contact"><span class="ico">✉️</span><span class="lbl">Contact</span></a>
+  <nav>
+    <h1>Rayan Bashawri's Website</h1>
+    <div class="nav-links">
+      <a href="index.html">🏠 Home</a>
+      <a href="about.html">👤 About</a>
+      <a href="dashboards.html">📊 Dashboards</a>
+      <a href="contact.html">✉️ Contact</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
   </nav>
 
-  <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark">🌙</button>
-
-  <header><h1>Dashboard Samples</h1></header>
-
   <main>
-    <div class="toolbar">
-      <label for="dashSelect"><strong>Select Dashboard:</strong></label>
-      <select id="dashSelect"></select>
-      <button class="view-btn" id="viewBtn">View</button>
-    </div>
-
+    <h2 style="color:var(--brand);text-align:center;">Dashboard Samples</h2>
     <div class="grid" id="grid"></div>
   </main>
 
-  <!-- Modal -->
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-header">
-      <div class="modal-title" id="modalTitle">Dashboard</div>
-      <button class="close-x" id="closeX" aria-label="Close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <img id="modalImg" alt="Dashboard preview">
-    </div>
-    <div class="modal-actions">
-      <a class="btn secondary" id="openNewTab" target="_blank" rel="noopener">Open Full Size</a>
-      <button class="btn" id="closeBtn">Close</button>
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close" id="closeBtn">✖</button>
+      <img id="modalImg" src="" alt="Dashboard preview">
     </div>
   </div>
 
   <script>
+    const dashboards=[
+      {name:"Price Mix Overview",file:"images/Price_mix_overview.png"},
+      {name:"Price Mix Detail",file:"images/Price_mix_Detail.png"},
+      {name:"Store Item Monitoring",file:"images/Store_Item_monitoring.png"}
+    ];
+    const grid=document.getElementById('grid');
+    dashboards.forEach(d=>{
+      const c=document.createElement('div'); c.className='card';
+      c.innerHTML=`<img src="${d.file}" class="thumb" alt="${d.name}"><div class="title">${d.name}</div>`;
+      c.addEventListener('click',()=>openModal(d.file));
+      grid.appendChild(c);
+    });
+    const modal=document.getElementById('modal'), modalImg=document.getElementById('modalImg');
+    function openModal(src){modalImg.src=src; modal.classList.add('show');}
+    document.getElementById('closeBtn').onclick=()=>modal.classList.remove('show');
+    modal.onclick=e=>{if(e.target===modal)modal.classList.remove('show');};
+
     const t=document.getElementById('themeToggle');
     if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');t.textContent='☀️';}
     t.addEventListener('click',()=>{document.body.classList.toggle('dark');
       t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
       localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
-
-    const DASHBOARDS=[
-      { name:"Price Mix Overview", file:"images/Price_mix_overview.png" },
-      { name:"Price Mix Detail", file:"images/Price_mix_Detail.png" },
-      { name:"Sales Performance – 2025", file:"images/sales_performance_2025.png" },
-      { name:"Store Item Monitoring", file:"images/Store_Item_monitoring.png" }
-    ];
-
-    const select=document.getElementById('dashSelect');
-    const grid=document.getElementById('grid');
-    DASHBOARDS.forEach((d,i)=>{
-      const opt=document.createElement('option'); opt.value=i; opt.textContent=d.name; select.appendChild(opt);
-      const card=document.createElement('div'); card.className='card'; card.title=d.name;
-      const img=document.createElement('img'); img.className='thumb'; img.alt=d.name+" thumbnail"; img.src=d.file;
-      const title=document.createElement('div'); title.className='title'; title.textContent=d.name;
-      card.appendChild(img); card.appendChild(title); card.addEventListener('click',()=>openModal(d));
-      grid.appendChild(card);
-    });
-
-    const modal=document.getElementById('modal');
-    const modalImg=document.getElementById('modalImg');
-    const modalTitle=document.getElementById('modalTitle');
-    const closeX=document.getElementById('closeX');
-    const closeBtn=document.getElementById('closeBtn');
-    const openNewTab=document.getElementById('openNewTab');
-    const viewBtn=document.getElementById('viewBtn');
-
-    function openModal(d){ modalTitle.textContent=d.name; modalImg.src=d.file; openNewTab.href=d.file; modal.classList.add('show'); }
-    function closeModal(){ modal.classList.remove('show'); }
-    closeX.addEventListener('click',closeModal); closeBtn.addEventListener('click',closeModal);
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-    viewBtn.addEventListener('click',()=>{ const idx=+select.value; if(!isNaN(idx)) openModal(DASHBOARDS[idx]); });
   </script>
 </body>
 </html>
