@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Resume – Rayan Bashawri</title>
-  <meta name="description" content="Resume of Rayan Bashawri" />
+  <title>Dashboard Samples – Rayan Bashawri</title>
   <style>
     :root { --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8; --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px; }
     body.dark { --brand:#7bb1ff; --ink:#f4f4f4; --bg1:#121212; --bg2:#1b1b1b; --card:#232323; --shadow:0 8px 20px rgba(0,0,0,.6); }
-    html { box-sizing:border-box; }
+    html { box-sizing:border-box; width:100%; max-width:100%; }
     *,*::before,*::after{ box-sizing:inherit; }
     html,body{ margin:0; padding:0; overflow-x:hidden; }
     body{ font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2)); transition:background .4s,color .4s; }
 
-    /* Top nav (matches your other pages) */
-    nav{ position:fixed; top:0; left:0; right:0; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:12px 16px; box-shadow:0 2px 10px rgba(0,0,0,.12); z-index:50; flex-wrap:wrap; gap:8px; }
+    nav{ position:fixed; top:0; left:0; right:0; background:var(--brand); color:#fff;
+      display:flex; align-items:center; justify-content:space-between; padding:12px 16px; box-shadow:0 2px 10px rgba(0,0,0,.12); z-index:50; flex-wrap:wrap; gap:8px; }
     nav h1{ margin:0; font-size:clamp(1rem, 3.8vw, 1.2rem); }
     .nav-links{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
     .nav-links a{ color:#fff; text-decoration:none; font-weight:bold; transition:opacity .2s; }
@@ -22,26 +21,29 @@
     .theme-toggle{ background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
 
     main{ padding:100px 16px 24px; max-width:1100px; margin:auto; min-height:100vh; }
-    h2{ color:var(--brand); font-size:clamp(1.1rem, 5vw, 1.5rem); text-align:center; margin:0 0 12px; }
+    h2{ color:var(--brand); text-align:center; margin:0 0 12px; font-size:clamp(1.1rem, 5vw, 1.5rem); }
 
-    /* Viewer card */
-    .card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:14px; transition:background .4s, box-shadow .4s; }
-    .toolbar{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:10px; }
-    .btn{ padding:10px 14px; border-radius:10px; border:1px solid var(--brand); background:var(--brand); color:#fff; font-weight:bold; text-decoration:none; cursor:pointer; }
-    .btn.secondary{ background:transparent; color:var(--brand); }
-    .note{ text-align:center; font-size:.9rem; opacity:.8; margin:8px 0 12px; }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:18px; }
+    .card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:10px; cursor:pointer; transition:transform .15s, box-shadow .15s; }
+    .card:hover{ transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.1); }
+    .thumb{ width:100%; border-radius:10px; object-fit:cover; display:block; }
+    .title{ padding:8px 4px; font-weight:bold; text-align:center; }
+    img,video{ max-width:100%; height:auto; display:block; }
 
-    /* PDF area */
-    .pdf-wrap{ width:100%; height:75vh; border-radius:10px; overflow:hidden; background:#fff; }
-    /* Make embedded PDF scale; some browsers ignore width/height on <embed> so we wrap it */
-    .pdf{ width:100%; height:100%; border:0; display:block; }
+    .modal{ position:fixed; inset:0; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.6); visibility:hidden; opacity:0; transition:opacity .3s; }
+    .modal.show{ visibility:visible; opacity:1; }
+    .modal-content{ background:var(--card); border-radius:12px; padding:12px; width:min(95vw,1000px); box-shadow:var(--shadow); max-height:85vh; overflow:auto; }
+    .modal-content img{ width:100%; border-radius:8px; max-height:75vh; object-fit:contain; }
+    .close{ background:var(--brand); color:#fff; border:none; padding:6px 10px; border-radius:8px; float:right; cursor:pointer; }
 
-    /* Mobile polish */
     @media (max-width:700px){
       nav{ flex-direction:column; align-items:flex-start; padding:10px; }
       .nav-links{ width:100%; justify-content:center; gap:12px; }
       main{ padding:88px 12px 16px; }
-      .pdf-wrap{ height:70vh; }
+    }
+    @media (max-width:420px){
+      .grid{ grid-template-columns:1fr; }
+      .card{ padding:20px; }
     }
   </style>
 </head>
@@ -52,39 +54,42 @@
     <div class="nav-links">
       <a href="index.html">👤 About</a>
       <a href="dashboards.html">📊 Dashboards</a>
-      <a href="contact.html">✉️ Contact</a>
       <a href="resume.html">📄 Resume</a>
+      <a href="contact.html">✉️ Contact</a>
       <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark">🌙</button>
     </div>
   </nav>
 
   <main>
-    <h2>Resume</h2>
-    <section class="card" aria-label="Resume viewer">
-      <div class="toolbar">
-        <!-- Open in new tab -->
-        <a class="btn" href="Resume/Resume.pdf" target="_blank" rel="noopener">Open PDF in New Tab</a>
-        <!-- Force download -->
-        <a class="btn secondary" href="Resume/Resume.pdf" download>Download PDF</a>
-      </div>
-
-      <p class="note">If the viewer below doesn’t load on your device, use “Open PDF in New Tab” above.</p>
-
-      <!-- Embedded PDF viewer with fallback -->
-      <div class="pdf-wrap">
-        <object class="pdf" data="Resume/Resume.pdf" type="application/pdf">
-          <embed class="pdf" src="Resume/Resume.pdf" type="application/pdf" />
-          <!-- Fallback content for browsers without PDF plugin -->
-          <div style="padding:16px; text-align:center;">
-            <p>PDF preview isn’t supported in this browser.</p>
-            <p><a class="btn" href="Resume/Resume.pdf" target="_blank" rel="noopener">Open PDF in New Tab</a></p>
-          </div>
-        </object>
-      </div>
-    </section>
+    <h2>Dashboard Samples</h2>
+    <div class="grid" id="grid"></div>
   </main>
 
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close" id="closeBtn">✖</button>
+      <img id="modalImg" src="" alt="Dashboard preview">
+    </div>
+  </div>
+
   <script>
+    const dashboards=[
+      {name:"Price Mix Overview",file:"images/Price_mix_overview.png"},
+      {name:"Price Mix Detail",file:"images/Price_mix_Detail.png"},
+      {name:"Store Item Monitoring",file:"images/Store_Item_monitoring.png"}
+    ];
+    const grid=document.getElementById('grid');
+    dashboards.forEach(d=>{
+      const c=document.createElement('div'); c.className='card';
+      c.innerHTML=`<img src="${d.file}" class="thumb" alt="${d.name}"><div class="title">${d.name}</div>`;
+      c.addEventListener('click',()=>openModal(d.file));
+      grid.appendChild(c);
+    });
+    const modal=document.getElementById('modal'), modalImg=document.getElementById('modalImg');
+    function openModal(src){modalImg.src=src; modal.classList.add('show');}
+    document.getElementById('closeBtn').onclick=()=>modal.classList.remove('show');
+    modal.onclick=e=>{if(e.target===modal)modal.classList.remove('show');};
+
     const t=document.getElementById('themeToggle');
     if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');t.textContent='☀️';}
     t.addEventListener('click',()=>{document.body.classList.toggle('dark');
