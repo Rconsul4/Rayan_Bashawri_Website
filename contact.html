@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact – Rayan Bashawri</title>
   <style>
     :root { --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8; --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px; }
     body.dark { --brand:#7bb1ff; --ink:#f4f4f4; --bg1:#121212; --bg2:#1b1b1b; --card:#232323; --shadow:0 8px 20px rgba(0,0,0,.6); }
-    html { box-sizing:border-box; width:100%; max-width:100%; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
-    *,*::before,*::after { box-sizing:inherit; }
-    html,body { margin:0; padding:0; overflow-x:hidden; }
-    body { font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2)); transition:background .4s,color .4s; }
+    html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+    body { margin:0; font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2)); transition:background .4s,color .4s; }
+
     nav {
       position:fixed; top:0; left:0; right:0; background:var(--brand); color:#fff;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 16px; box-shadow:0 2px 10px rgba(0,0,0,.12); z-index:50; flex-wrap:wrap; gap:8px;
+      display:flex; align-items:center; justify-content:space-between; padding:12px 16px;
+      box-shadow:0 2px 10px rgba(0,0,0,.12); z-index:50; flex-wrap:wrap; gap:8px;
       padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right));
     }
     nav h1 { margin:0; font-size:clamp(1rem,3.8vw,1.2rem); line-height:1.25; letter-spacing:0.2px; }
@@ -22,100 +21,133 @@
     .nav-links a { color:#fff; text-decoration:none; font-weight:bold; transition:opacity .2s; }
     .nav-links a:hover { opacity:.85; }
     .theme-toggle { background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
-    main { padding:100px 16px 24px; display:grid; place-items:center; min-height:100vh; }
-    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px; max-width:920px; width:min(920px,94vw); transition:background .4s, box-shadow .4s; }
-    h2 { color:var(--brand); margin-top:0; }
-    p { margin:.6rem 0; line-height:1.6; }
-    /* Mobile */
+
+    main { padding:100px 20px 24px; display:grid; place-items:center; min-height:100vh; overflow:auto; }
+    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:36px 28px; width:min(600px,92vw); text-align:center; }
+    h2 { color:var(--brand); }
+    a { color:var(--brand); text-decoration:none; font-weight:bold; }
+    a:hover { text-decoration:underline; }
+    p { font-size:18px; margin:10px 0; }
+
     @media (max-width:700px){
       nav{ flex-direction:column; align-items:center; }
       nav h1{ width:100%; text-align:center; margin-bottom:4px; }
       .nav-links{ width:100%; justify-content:center; gap:12px; }
       main{ padding:88px 12px 16px; }
-      .card{ padding:24px; }
     }
-    /* --- Gloss Pack v2 --- */
+    
+/* ---------- UX polish pack (paste at end of <style>) ---------- */
 
-/* ===== Gloss Pack v2 ===== */
-:root { --brand1:#1a4f8b; --brand2:#3b82f6; }
-/* Glossy, glass navbar */
+/* 1) Subtle, consistent transitions where it matters */
+.nav-links a,
+.theme-toggle,
+.btn,
+.card,
+.modal,
+.close {
+  transition: color .2s ease, background-color .2s ease,
+              box-shadow .25s ease, transform .25s ease, opacity .25s ease;
+}
+
+/* 2) Glassy navbar + gentle gradient */
 nav {
-  background:
-    linear-gradient(180deg, rgba(26,79,139,.92), rgba(26,79,139,.88)),
-    linear-gradient(120deg, var(--brand1), var(--brand2));
-  background-blend-mode: overlay;
-  backdrop-filter: saturate(160%) blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(26,79,139,.96), rgba(26,79,139,.92));
+  backdrop-filter: saturate(140%) blur(8px);
 }
-/* Glass cards with layered shadow */
-.card {
-  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.78));
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.5);
-  box-shadow:
-    0 10px 18px rgba(0,0,0,.10),
-    0 2px 6px rgba(0,0,0,.06) inset;
+
+/* 3) Softer typography rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga","kern";
 }
-body.dark .card {
-  background: linear-gradient(180deg, rgba(35,35,35,.75), rgba(35,35,35,.68));
-  border-color: rgba(255,255,255,.08);
-  box-shadow:
-    0 18px 32px rgba(0,0,0,.45),
-    0 1px 0 rgba(255,255,255,.03) inset;
+
+/* 4) Smooth page scrolling for in-page anchors */
+html { scroll-behavior: smooth; }
+
+/* 5) Card: float a tiny bit on hover; crisper shadow */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0,0,0,.12);
 }
-/* Fancy brand button with sheen */
-.btn, .cta {
+
+/* 6) Buttons: modern hover/active */
+.btn:hover,
+.theme-toggle:hover {
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+}
+.btn:active,
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+/* 7) Links: animated underline for nav + content links */
+.nav-links a {
   position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--brand1), var(--brand2));
-  border: none;
-  box-shadow: 0 10px 18px rgba(59,130,246,.25);
 }
-.btn.secondary {
-  background: transparent;
-  border: 1px solid var(--brand2);
-  box-shadow: none;
-}
-.btn::after, .cta::after {
+.nav-links a::after {
   content: "";
   position: absolute;
-  top: 0; left: -150%;
-  width: 50%; height: 100%;
-  transform: skewX(-25deg);
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
-  transition: left .6s ease;
+  left: 8px; right: 8px; bottom: -4px;
+  height: 2px; border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+  opacity: .85;
 }
-.btn:hover::after, .cta:hover::after { left: 160%; }
-/* Elevated hover lift */
-.card:hover { transform: translateY(-3px); }
-/* Premium link underline */
-.nav-links a { text-underline-offset: 4px; }
-.nav-links a:hover { text-decoration: underline; }
-/* Subtle glow on titles */
-h2 { text-shadow: 0 1px 0 rgba(255,255,255,.4); }
-body.dark h2 { text-shadow: 0 1px 0 rgba(0,0,0,.4); }
-/* Animated gradient border utility */
-.shine-border { position: relative; border-radius: 14px; }
-.shine-border::before {
-  content:"";
-  position:absolute; inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(120deg, rgba(255,255,255,.7), rgba(59,130,246,.6), rgba(255,255,255,.7));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: spinGradient 6s linear infinite;
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* 8) Active nav item (works if you add aria-current="page" to that link) */
+.nav-links a[aria-current="page"] {
+  opacity: 1;
+  text-shadow: 0 0 1px rgba(255,255,255,.2);
 }
-@keyframes spinGradient { to { transform: rotate(360deg); } }
-/* Motion safety */
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+/* 9) Focus styles (keyboard accessibility) */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* 10) Page entrance animation (gentle + motion-safe) */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+main .card, main h2, .grid .card, .modal-content {
+  animation: fadeUp .45s ease both;
+}
+main h2 { animation-delay: .06s; }
+.grid .card { animation-delay: .08s; }
+
+/* 11) Modal backdrop: quicker, smoother open/close */
+.modal { transition: opacity .25s ease, visibility .25s ease; }
+
+/* 12) Handy separators inside cards (optional utility) */
+.card hr {
+  border: none; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,.12), transparent);
+  margin: 14px 0;
+}
+
+/* 13) Dark theme fine-tuning */
+body.dark .card { box-shadow: 0 12px 28px rgba(0,0,0,.5); }
+body.dark .nav-links a::after { opacity: .9; }
+
+/* 14) Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
 }
 
   </style>
 </head>
 <body>
+
   <nav>
     <h1>Rayan Bashawri's Website</h1>
     <div class="nav-links">
@@ -128,9 +160,9 @@ body.dark h2 { text-shadow: 0 1px 0 rgba(0,0,0,.4); }
   </nav>
 
   <main>
-    <section class="card shine-border" style="width:min(600px,92vw); text-align:center;">
+    <section class="card">
       <h2>Get in Touch</h2>
-      <p>📧 <a href="mailto:rayanbconsult4@hotmail.com" style="color:var(--brand); font-weight:bold; text-decoration:none;">rayanbconsult4@hotmail.com</a></p>
+      <p>📧 <a href="mailto:rayanbconsult4@hotmail.com">rayanbconsult4@hotmail.com</a></p>
       <p>📱 +966 5x xxx xxxx</p>
     </section>
   </main>
@@ -138,13 +170,11 @@ body.dark h2 { text-shadow: 0 1px 0 rgba(0,0,0,.4); }
   <script>
     const t=document.getElementById('themeToggle');
     if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');t.textContent='☀️';}
-    t.addEventListener('click',()=>{
-      document.body.classList.toggle('dark');
+    t.addEventListener('click',()=>{document.body.classList.toggle('dark');
       t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
-      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');
-    });
+      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
   </script>
-
+  
 <script>
   (function(){
     var here = (location.pathname.split('/').pop() || 'index.html');
@@ -153,25 +183,6 @@ body.dark h2 { text-shadow: 0 1px 0 rgba(0,0,0,.4); }
       if (target === here) a.setAttribute('aria-current','page');
       if ((here === '' || here === '/') && target === 'index.html') a.setAttribute('aria-current','page');
     });
-  })();
-</script>
-
-<script>
-  (function(){
-    var els = document.querySelectorAll('.card, .grid .card, h2');
-    els.forEach(function(el){
-      el.style.opacity=0; el.style.transform='translateY(8px)';
-    });
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          e.target.style.transition='opacity .45s ease, transform .45s ease';
-          e.target.style.opacity=1; e.target.style.transform='translateY(0)';
-          io.unobserve(e.target);
-        }
-      });
-    }, {threshold:.08});
-    els.forEach(function(el){ io.observe(el); });
   })();
 </script>
 
