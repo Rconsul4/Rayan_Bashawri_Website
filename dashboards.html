@@ -1,69 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard Samples – Rayan Bashawri</title>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <style>
-    :root { --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8; --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px; }
+    :root { --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8; --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px; --nav-pad:100px; }
     body.dark { --brand:#7bb1ff; --ink:#f4f4f4; --bg1:#121212; --bg2:#1b1b1b; --card:#232323; --shadow:0 8px 20px rgba(0,0,0,.6); }
     html { box-sizing:border-box; width:100%; max-width:100%; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
     *,*::before,*::after { box-sizing:inherit; }
-    html,body { margin:0; padding:0; overflow-x:hidden; }
-    body { font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2)); transition:background .4s,color .4s; }
+    html,body { margin:0; padding:0; }
+    body { font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2));
+           transition:background .4s,color .4s; overflow-x:hidden; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    img,video { max-width:100%; height:auto; display:block; }
 
-    nav {
-      position:fixed; top:0; left:0; right:0; background:var(--brand); color:#fff;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 16px; box-shadow:0 2px 10px rgba(0,0,0,.12); z-index:50; flex-wrap:wrap; gap:8px;
-      padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right));
-      background: linear-gradient(180deg, rgba(26,79,139,.96), rgba(26,79,139,.92));
+    nav{
+      position:fixed; top:0; left:0; right:0; z-index:50;
+      color:#fff; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
+      padding:12px max(16px, env(safe-area-inset-right)) 12px max(16px, env(safe-area-inset-left));
+      background:
+        linear-gradient(180deg, rgba(26,79,139,.96), rgba(26,79,139,.92)),
+        linear-gradient(120deg, #1a4f8b, #3b82f6);
+      background-blend-mode: overlay;
       backdrop-filter: saturate(140%) blur(8px);
+      -webkit-backdrop-filter: saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      box-shadow:0 2px 10px rgba(0,0,0,.12);
     }
-    nav h1 { margin:0; font-size:clamp(1rem,3.8vw,1.2rem); line-height:1.25; letter-spacing:0.2px; }
+    nav h1 { margin:0; font-size:clamp(1rem, 3.8vw, 1.2rem); line-height:1.25; letter-spacing:.2px; }
     .nav-links { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
-    .nav-links a { color:#fff; text-decoration:none; font-weight:bold; transition:opacity .2s; position:relative; }
+    .nav-links a { color:#fff; text-decoration:none; font-weight:bold; position:relative; }
     .nav-links a:hover { opacity:.85; }
-    .nav-links a::after {
-      content: ""; position: absolute; left: 8px; right: 8px; bottom: -4px; height: 2px; border-radius: 2px;
-      background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .25s ease; opacity: .85;
-    }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-links a[aria-current="page"] { opacity:1; text-shadow:0 0 1px rgba(255,255,255,.2); }
-    .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .nav-links a::after{ content:""; position:absolute; left:8px; right:8px; bottom:-4px; height:2px; border-radius:2px; background:currentColor; transform:scaleX(0); transform-origin:left; transition:transform .25s ease; opacity:.85; }
+    .nav-links a:hover::after{ transform:scaleX(1); }
+    .nav-links a[aria-current="page"]::after{ transform:scaleX(1); }
+    .theme-toggle{ background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
 
-    .theme-toggle { background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
+    main { min-height: 100svh; padding: var(--nav-pad) 16px 24px; -webkit-overflow-scrolling: touch; }
 
-    main { padding:100px 16px 24px; display:grid; place-items:center; min-height:100vh; }
-    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px; max-width:920px; width:min(920px,94vw); transition:background .4s, box-shadow .4s; }
-    h2 { color:var(--brand); margin-top:0; }
-    p { margin:.6rem 0; line-height:1.6; }
-    ul { list-style:none; padding-left:0; margin-top:.4rem; }
-    li { margin:.6rem 0; }
-    li::before { margin-right:8px; font-size:18px; }
-    li.pricing::before{ content:"📊"; } li.dashboard::before{ content:"🏢"; }
-    li.automation::before{ content:"⚙️"; } li.analytics::before{ content:"🤖"; }
-    li.pnl::before{ content:"💰"; }
+    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); transition:background .4s, box-shadow .4s; }
 
     @media (max-width:700px){
       nav{ flex-direction:column; align-items:center; }
       nav h1{ width:100%; text-align:center; margin-bottom:4px; }
       .nav-links{ width:100%; justify-content:center; gap:12px; }
-      main{ padding:88px 12px 16px; }
-      .card{ padding:24px; }
     }
+  </style>
 
-    @keyframes fadeUp { from {opacity:0; transform:translateY(6px);} to {opacity:1; transform:translateY(0);} }
-    main .card, main h2 { animation: fadeUp .45s ease both; }
-    
-@media (max-width:480px){
-  .pdf-wrap { height: 70vh; }
-}
-
+  <style>
+    main { max-width:1100px; margin:auto; }
+    h2{ color:var(--brand); text-align:center; margin:0 0 12px; font-size:clamp(1.1rem, 5vw, 1.5rem); }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px; }
+    .card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:10px; transition:transform .15s, box-shadow .15s; }
+    .card:hover{ transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.1); }
+    .thumb-wrap{ aspect-ratio:16/9; width:100%; border-radius:10px; background:#fff; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .thumb-wrap img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
+    .title{ padding:8px 4px; font-weight:bold; text-align:center; }
+    .modal{ position:fixed; inset:0; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.65); visibility:hidden; opacity:0; transition:opacity .25s, visibility .25s; padding:max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)); }
+    .modal.show{ visibility:visible; opacity:1; }
+    .modal-content{ background:var(--card); border-radius:12px; padding:12px; width:min(95vw,1000px); box-shadow:var(--shadow); max-height:85svh; overflow:auto; }
+    .modal-content img{ width:100%; border-radius:8px; max-height:80svh; object-fit:contain; }
+    .close{ background:var(--brand); color:#fff; border:none; padding:8px 12px; border-radius:8px; float:right; cursor:pointer; margin-bottom:8px; }
+    @media (max-width:700px){ .grid{ grid-template-columns:1fr; } .card{ padding:16px; } }
   </style>
 </head>
 <body>
-
+  
   <nav>
     <h1>Rayan Bashawri's Website</h1>
     <div class="nav-links">
@@ -76,55 +79,62 @@
     </div>
   </nav>
 
-  
-<main>
-  <h2>Dashboard Samples</h2>
-  <div class="grid" id="grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:18px; max-width:1100px; width:100%;"></div>
-</main>
-
-<div class="modal" id="modal" style="position:fixed; inset:0; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.6); visibility:hidden; opacity:0; transition:opacity .3s;">
-  <div class="modal-content card" style="padding:12px; width:min(95vw,1000px); max-height:85vh; overflow:auto;">
-    <button class="close" id="closeBtn" style="background:var(--brand); color:#fff; border:none; padding:6px 10px; border-radius:8px; float:right; cursor:pointer; margin-bottom:8px;">✖</button>
-    <img id="modalImg" src="" alt="Dashboard preview" style="width:100%; border-radius:8px; max-height:75vh; object-fit:contain;">
+  <main>
+    <h2>Dashboard Samples</h2>
+    <div class="grid" id="grid"></div>
+  </main>
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close" id="closeBtn">✖</button>
+      <img id="modalImg" src="" alt="Dashboard preview">
+    </div>
   </div>
-</div>
-
-<script>
-  const dashboards=[
-    {name:"Price Mix Overview",file:"images/Price_mix_overview.png"},
-    {name:"Price Mix Detail",file:"images/Price_mix_Detail.png"},
-    {name:"Store Item Monitoring",file:"images/Store_Item_monitoring.png"}
-  ];
-  const grid=document.getElementById('grid');
-  dashboards.forEach(d=>{
-    const c=document.createElement('div'); c.className='card';
-    c.innerHTML=`<img src="${d.file}" class="thumb" alt="${d.name}" style="width:100%; border-radius:10px; object-fit:cover; display:block;"><div class="title" style="padding:8px 4px; font-weight:bold; text-align:center;">${d.name}</div>`;
-    c.addEventListener('click',()=>openModal(d.file));
-    grid.appendChild(c);
-  });
-  const modal=document.getElementById('modal'), modalImg=document.getElementById('modalImg');
-  function openModal(src){modalImg.src=src; modal.classList.add('show'); modal.style.visibility='visible'; modal.style.opacity='1';}
-  document.getElementById('closeBtn').onclick=()=>{ modal.classList.remove('show'); modal.style.opacity='0'; modal.style.visibility='hidden'; };
-  modal.onclick=e=>{ if(e.target===modal){ modal.classList.remove('show'); modal.style.opacity='0'; modal.style.visibility='hidden'; } };
-</script>
-
-
+  
   <script>
+    // Theme toggle
     const t=document.getElementById('themeToggle');
     if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');t.textContent='☀️';}
-    t.addEventListener('click',()=>{document.body.classList.toggle('dark');
-      t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
-      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
-  </script>
-  <script>
+    t.addEventListener('click',()=>{document.body.classList.toggle('dark');t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
+
+    // Active link
     (function(){
-      var here = (location.pathname.split('/').pop() || 'index.html');
-      document.querySelectorAll('.nav-links a').forEach(function(a){
-        var target = a.getAttribute('href');
-        if (target === here) a.setAttribute('aria-current','page');
-        if ((here === '' || here === '/') && target === 'index.html') a.setAttribute('aria-current','page');
+      const here=(location.pathname.split('/').pop()||'index.html');
+      document.querySelectorAll('.nav-links a').forEach(a=>{
+        const target=a.getAttribute('href');
+        if (target===here) a.setAttribute('aria-current','page');
+        if ((here===''||here==='/') && target==='index.html') a.setAttribute('aria-current','page');
       });
     })();
+
+    // Dynamic main top padding = real nav height + 16
+    (function(){
+      const nav=document.querySelector('nav');
+      const root=document.documentElement;
+      const setPad=()=>{ root.style.setProperty('--nav-pad', (nav.offsetHeight + 16) + 'px'); };
+      new ResizeObserver(setPad).observe(nav);
+      window.addEventListener('load', setPad);
+      window.addEventListener('orientationchange', setPad);
+      window.addEventListener('resize', setPad);
+    })();
+  </script>
+
+  <script>
+    const dashboards=[
+      {name:"Price Mix Overview",file:"images/Price_mix_overview.png"},
+      {name:"Price Mix Detail",file:"images/Price_mix_Detail.png"},
+      {name:"Store Item Monitoring",file:"images/Store_Item_monitoring.png"}
+    ];
+    const grid=document.getElementById('grid');
+    dashboards.forEach(d=>{
+      const c=document.createElement('div'); c.className='card';
+      c.innerHTML=`<div class="thumb-wrap"><img src="${d.file}" alt="${d.name}" loading="lazy"></div><div class="title">${d.name}</div>`;
+      c.addEventListener('click',()=>openModal(d.file));
+      grid.appendChild(c);
+    });
+    const modal=document.getElementById('modal'), modalImg=document.getElementById('modalImg');
+    function openModal(src){ modalImg.src=src; modal.classList.add('show'); }
+    document.getElementById('closeBtn').onclick=()=>modal.classList.remove('show');
+    modal.onclick=e=>{ if(e.target===modal) modal.classList.remove('show'); };
   </script>
 </body>
 </html>

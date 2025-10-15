@@ -1,69 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Resume – Rayan Bashawri</title>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <style>
-    :root { --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8; --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px; }
+    :root { --brand:#1a4f8b; --ink:#333; --bg1:#f7fbff; --bg2:#eef3f8; --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:14px; --nav-pad:100px; }
     body.dark { --brand:#7bb1ff; --ink:#f4f4f4; --bg1:#121212; --bg2:#1b1b1b; --card:#232323; --shadow:0 8px 20px rgba(0,0,0,.6); }
     html { box-sizing:border-box; width:100%; max-width:100%; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
     *,*::before,*::after { box-sizing:inherit; }
-    html,body { margin:0; padding:0; overflow-x:hidden; }
-    body { font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2)); transition:background .4s,color .4s; }
+    html,body { margin:0; padding:0; }
+    body { font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2));
+           transition:background .4s,color .4s; overflow-x:hidden; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    img,video { max-width:100%; height:auto; display:block; }
 
-    nav {
-      position:fixed; top:0; left:0; right:0; background:var(--brand); color:#fff;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 16px; box-shadow:0 2px 10px rgba(0,0,0,.12); z-index:50; flex-wrap:wrap; gap:8px;
-      padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right));
-      background: linear-gradient(180deg, rgba(26,79,139,.96), rgba(26,79,139,.92));
+    nav{
+      position:fixed; top:0; left:0; right:0; z-index:50;
+      color:#fff; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
+      padding:12px max(16px, env(safe-area-inset-right)) 12px max(16px, env(safe-area-inset-left));
+      background:
+        linear-gradient(180deg, rgba(26,79,139,.96), rgba(26,79,139,.92)),
+        linear-gradient(120deg, #1a4f8b, #3b82f6);
+      background-blend-mode: overlay;
       backdrop-filter: saturate(140%) blur(8px);
+      -webkit-backdrop-filter: saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      box-shadow:0 2px 10px rgba(0,0,0,.12);
     }
-    nav h1 { margin:0; font-size:clamp(1rem,3.8vw,1.2rem); line-height:1.25; letter-spacing:0.2px; }
+    nav h1 { margin:0; font-size:clamp(1rem, 3.8vw, 1.2rem); line-height:1.25; letter-spacing:.2px; }
     .nav-links { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
-    .nav-links a { color:#fff; text-decoration:none; font-weight:bold; transition:opacity .2s; position:relative; }
+    .nav-links a { color:#fff; text-decoration:none; font-weight:bold; position:relative; }
     .nav-links a:hover { opacity:.85; }
-    .nav-links a::after {
-      content: ""; position: absolute; left: 8px; right: 8px; bottom: -4px; height: 2px; border-radius: 2px;
-      background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .25s ease; opacity: .85;
-    }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-links a[aria-current="page"] { opacity:1; text-shadow:0 0 1px rgba(255,255,255,.2); }
-    .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .nav-links a::after{ content:""; position:absolute; left:8px; right:8px; bottom:-4px; height:2px; border-radius:2px; background:currentColor; transform:scaleX(0); transform-origin:left; transition:transform .25s ease; opacity:.85; }
+    .nav-links a:hover::after{ transform:scaleX(1); }
+    .nav-links a[aria-current="page"]::after{ transform:scaleX(1); }
+    .theme-toggle{ background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
 
-    .theme-toggle { background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
+    main { min-height: 100svh; padding: var(--nav-pad) 16px 24px; -webkit-overflow-scrolling: touch; }
 
-    main { padding:100px 16px 24px; display:grid; place-items:center; min-height:100vh; }
-    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px; max-width:920px; width:min(920px,94vw); transition:background .4s, box-shadow .4s; }
-    h2 { color:var(--brand); margin-top:0; }
-    p { margin:.6rem 0; line-height:1.6; }
-    ul { list-style:none; padding-left:0; margin-top:.4rem; }
-    li { margin:.6rem 0; }
-    li::before { margin-right:8px; font-size:18px; }
-    li.pricing::before{ content:"📊"; } li.dashboard::before{ content:"🏢"; }
-    li.automation::before{ content:"⚙️"; } li.analytics::before{ content:"🤖"; }
-    li.pnl::before{ content:"💰"; }
+    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); transition:background .4s, box-shadow .4s; }
 
     @media (max-width:700px){
       nav{ flex-direction:column; align-items:center; }
       nav h1{ width:100%; text-align:center; margin-bottom:4px; }
       .nav-links{ width:100%; justify-content:center; gap:12px; }
-      main{ padding:88px 12px 16px; }
-      .card{ padding:24px; }
     }
+  </style>
 
-    @keyframes fadeUp { from {opacity:0; transform:translateY(6px);} to {opacity:1; transform:translateY(0);} }
-    main .card, main h2 { animation: fadeUp .45s ease both; }
-    
-@media (max-width:480px){
-  .pdf-wrap { height: 70vh; }
-}
-
+  <style>
+    main{ max-width:1100px; margin:auto; }
+    h2{ color:var(--brand); text-align:center; margin:0 0 12px; }
+    .card{ padding:14px; }
+    .toolbar{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:10px; }
+    .btn{ padding:10px 14px; border-radius:10px; border:1px solid var(--brand); background:var(--brand); color:#fff; font-weight:bold; text-decoration:none; cursor:pointer; }
+    .btn.secondary{ background:transparent; color:var(--brand); }
+    .pdf-wrap{ width:100%; height:75svh; border-radius:10px; overflow:hidden; background:#fff; }
+    .pdf{ width:100%; height:100%; border:0; display:block; }
+    @media (max-width:700px){ .pdf-wrap{ height:70svh; } }
   </style>
 </head>
 <body>
-
+  
   <nav>
     <h1>Rayan Bashawri's Website</h1>
     <div class="nav-links">
@@ -76,44 +74,52 @@
     </div>
   </nav>
 
+  <main>
+    <h2>Resume</h2>
+    <section class="card" aria-label="Resume viewer">
+      <div class="toolbar">
+        <a class="btn" href="Resume/Resume.pdf" target="_blank" rel="noopener">Open PDF in New Tab</a>
+        <a class="btn secondary" href="Resume/Resume.pdf" download>Download PDF</a>
+      </div>
+      <div class="pdf-wrap">
+        <object class="pdf" data="Resume/Resume.pdf" type="application/pdf">
+          <embed class="pdf" src="Resume/Resume.pdf" type="application/pdf" />
+          <div style="padding:16px; text-align:center;">
+            <p>PDF preview isn’t supported in this browser.</p>
+            <p><a class="btn" href="Resume/Resume.pdf" target="_blank" rel="noopener">Open PDF in New Tab</a></p>
+          </div>
+        </object>
+      </div>
+    </section>
+  </main>
   
-<main style="max-width:1100px; margin:auto;">
-  <h2>Resume</h2>
-  <section class="card" aria-label="Resume viewer">
-    <div class="toolbar" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:10px;">
-      <a class="btn" href="Resume/Resume.pdf" target="_blank" rel="noopener" style="padding:10px 14px; border-radius:10px; color:#fff; text-decoration:none; background:var(--brand);">Open PDF in New Tab</a>
-      <a class="btn secondary" href="Resume/Resume.pdf" download style="padding:10px 14px; border-radius:10px; text-decoration:none; border:1px solid var(--brand); color:var(--brand); background:transparent;">Download PDF</a>
-    </div>
-    <p class="note" style="text-align:center; font-size:.9rem; opacity:.85; margin:8px 0 12px;">If the viewer below doesn’t load on your device, use “Open PDF in New Tab”.</p>
-    <div class="pdf-wrap" style="width:100%; height:75vh; border-radius:10px; overflow:hidden; background:#fff;">
-      <object class="pdf" data="Resume/Resume.pdf" type="application/pdf" style="width:100%; height:100%; border:0; display:block;">
-        <embed class="pdf" src="Resume/Resume.pdf" type="application/pdf" style="width:100%; height:100%; border:0; display:block;" />
-        <div style="padding:16px; text-align:center;">
-          <p>PDF preview isn’t supported in this browser.</p>
-          <p><a class="btn" href="Resume/Resume.pdf" target="_blank" rel="noopener" style="padding:10px 14px; border-radius:10px; color:#fff; text-decoration:none; background:var(--brand);">Open PDF in New Tab</a></p>
-        </div>
-      </object>
-    </div>
-  </section>
-</main>
-
-
   <script>
+    // Theme toggle
     const t=document.getElementById('themeToggle');
     if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');t.textContent='☀️';}
-    t.addEventListener('click',()=>{document.body.classList.toggle('dark');
-      t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
-      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
-  </script>
-  <script>
+    t.addEventListener('click',()=>{document.body.classList.toggle('dark');t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
+
+    // Active link
     (function(){
-      var here = (location.pathname.split('/').pop() || 'index.html');
-      document.querySelectorAll('.nav-links a').forEach(function(a){
-        var target = a.getAttribute('href');
-        if (target === here) a.setAttribute('aria-current','page');
-        if ((here === '' || here === '/') && target === 'index.html') a.setAttribute('aria-current','page');
+      const here=(location.pathname.split('/').pop()||'index.html');
+      document.querySelectorAll('.nav-links a').forEach(a=>{
+        const target=a.getAttribute('href');
+        if (target===here) a.setAttribute('aria-current','page');
+        if ((here===''||here==='/') && target==='index.html') a.setAttribute('aria-current','page');
       });
     })();
+
+    // Dynamic main top padding = real nav height + 16
+    (function(){
+      const nav=document.querySelector('nav');
+      const root=document.documentElement;
+      const setPad=()=>{ root.style.setProperty('--nav-pad', (nav.offsetHeight + 16) + 'px'); };
+      new ResizeObserver(setPad).observe(nav);
+      window.addEventListener('load', setPad);
+      window.addEventListener('orientationchange', setPad);
+      window.addEventListener('resize', setPad);
+    })();
   </script>
+
 </body>
 </html>
