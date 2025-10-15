@@ -44,6 +44,115 @@
       main{ padding:88px 12px 16px; }
       .pdf-wrap{ height:70vh; }
     }
+    
+/* ---------- UX polish pack (paste at end of <style>) ---------- */
+
+/* 1) Subtle, consistent transitions where it matters */
+.nav-links a,
+.theme-toggle,
+.btn,
+.card,
+.modal,
+.close {
+  transition: color .2s ease, background-color .2s ease,
+              box-shadow .25s ease, transform .25s ease, opacity .25s ease;
+}
+
+/* 2) Glassy navbar + gentle gradient */
+nav {
+  background: linear-gradient(180deg, rgba(26,79,139,.96), rgba(26,79,139,.92));
+  backdrop-filter: saturate(140%) blur(8px);
+}
+
+/* 3) Softer typography rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga","kern";
+}
+
+/* 4) Smooth page scrolling for in-page anchors */
+html { scroll-behavior: smooth; }
+
+/* 5) Card: float a tiny bit on hover; crisper shadow */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0,0,0,.12);
+}
+
+/* 6) Buttons: modern hover/active */
+.btn:hover,
+.theme-toggle:hover {
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+}
+.btn:active,
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+/* 7) Links: animated underline for nav + content links */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 8px; right: 8px; bottom: -4px;
+  height: 2px; border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+  opacity: .85;
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* 8) Active nav item (works if you add aria-current="page" to that link) */
+.nav-links a[aria-current="page"] {
+  opacity: 1;
+  text-shadow: 0 0 1px rgba(255,255,255,.2);
+}
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+/* 9) Focus styles (keyboard accessibility) */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* 10) Page entrance animation (gentle + motion-safe) */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+main .card, main h2, .grid .card, .modal-content {
+  animation: fadeUp .45s ease both;
+}
+main h2 { animation-delay: .06s; }
+.grid .card { animation-delay: .08s; }
+
+/* 11) Modal backdrop: quicker, smoother open/close */
+.modal { transition: opacity .25s ease, visibility .25s ease; }
+
+/* 12) Handy separators inside cards (optional utility) */
+.card hr {
+  border: none; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,.12), transparent);
+  margin: 14px 0;
+}
+
+/* 13) Dark theme fine-tuning */
+body.dark .card { box-shadow: 0 12px 28px rgba(0,0,0,.5); }
+body.dark .nav-links a::after { opacity: .9; }
+
+/* 14) Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
   </style>
 </head>
 <body>
@@ -88,5 +197,17 @@
       t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
       localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
   </script>
+  
+<script>
+  (function(){
+    var here = (location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+      var target = a.getAttribute('href');
+      if (target === here) a.setAttribute('aria-current','page');
+      if ((here === '' || here === '/') && target === 'index.html') a.setAttribute('aria-current','page');
+    });
+  })();
+</script>
+
 </body>
 </html>
