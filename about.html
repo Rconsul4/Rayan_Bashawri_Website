@@ -11,7 +11,6 @@
     *,*::before,*::after { box-sizing:inherit; }
     html,body { margin:0; padding:0; overflow-x:hidden; }
     body { font-family:Arial,sans-serif; color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2)); transition:background .4s,color .4s; }
-
     nav {
       position:fixed; top:0; left:0; right:0; background:var(--brand); color:#fff;
       display:flex; align-items:center; justify-content:space-between;
@@ -23,18 +22,11 @@
     .nav-links a { color:#fff; text-decoration:none; font-weight:bold; transition:opacity .2s; }
     .nav-links a:hover { opacity:.85; }
     .theme-toggle { background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
-
     main { padding:100px 16px 24px; display:grid; place-items:center; min-height:100vh; }
     .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px; max-width:920px; width:min(920px,94vw); transition:background .4s, box-shadow .4s; }
     h2 { color:var(--brand); margin-top:0; }
     p { margin:.6rem 0; line-height:1.6; }
-    ul { list-style:none; padding-left:0; margin-top:.4rem; }
-    li { margin:.6rem 0; }
-    li::before { margin-right:8px; font-size:18px; }
-    li.pricing::before{ content:"📊"; } li.dashboard::before{ content:"🏢"; }
-    li.automation::before{ content:"⚙️"; } li.analytics::before{ content:"🤖"; }
-    li.pnl::before{ content:"💰"; }
-
+    /* Mobile */
     @media (max-width:700px){
       nav{ flex-direction:column; align-items:center; }
       nav h1{ width:100%; text-align:center; margin-bottom:4px; }
@@ -42,119 +34,88 @@
       main{ padding:88px 12px 16px; }
       .card{ padding:24px; }
     }
-    
-/* ---------- UX polish pack (paste at end of <style>) ---------- */
+    /* --- Gloss Pack v2 --- */
 
-/* 1) Subtle, consistent transitions where it matters */
-.nav-links a,
-.theme-toggle,
-.btn,
-.card,
-.modal,
-.close {
-  transition: color .2s ease, background-color .2s ease,
-              box-shadow .25s ease, transform .25s ease, opacity .25s ease;
-}
-
-/* 2) Glassy navbar + gentle gradient */
+/* ===== Gloss Pack v2 ===== */
+:root { --brand1:#1a4f8b; --brand2:#3b82f6; }
+/* Glossy, glass navbar */
 nav {
-  background: linear-gradient(180deg, rgba(26,79,139,.96), rgba(26,79,139,.92));
-  backdrop-filter: saturate(140%) blur(8px);
+  background:
+    linear-gradient(180deg, rgba(26,79,139,.92), rgba(26,79,139,.88)),
+    linear-gradient(120deg, var(--brand1), var(--brand2));
+  background-blend-mode: overlay;
+  backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,.12);
 }
-
-/* 3) Softer typography rendering */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "liga","kern";
+/* Glass cards with layered shadow */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.78));
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.5);
+  box-shadow:
+    0 10px 18px rgba(0,0,0,.10),
+    0 2px 6px rgba(0,0,0,.06) inset;
 }
-
-/* 4) Smooth page scrolling for in-page anchors */
-html { scroll-behavior: smooth; }
-
-/* 5) Card: float a tiny bit on hover; crisper shadow */
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 36px rgba(0,0,0,.12);
+body.dark .card {
+  background: linear-gradient(180deg, rgba(35,35,35,.75), rgba(35,35,35,.68));
+  border-color: rgba(255,255,255,.08);
+  box-shadow:
+    0 18px 32px rgba(0,0,0,.45),
+    0 1px 0 rgba(255,255,255,.03) inset;
 }
-
-/* 6) Buttons: modern hover/active */
-.btn:hover,
-.theme-toggle:hover {
-  filter: brightness(1.03);
-  transform: translateY(-1px);
-}
-.btn:active,
-.theme-toggle:active {
-  transform: translateY(0);
-}
-
-/* 7) Links: animated underline for nav + content links */
-.nav-links a {
+/* Fancy brand button with sheen */
+.btn, .cta {
   position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--brand1), var(--brand2));
+  border: none;
+  box-shadow: 0 10px 18px rgba(59,130,246,.25);
 }
-.nav-links a::after {
+.btn.secondary {
+  background: transparent;
+  border: 1px solid var(--brand2);
+  box-shadow: none;
+}
+.btn::after, .cta::after {
   content: "";
   position: absolute;
-  left: 8px; right: 8px; bottom: -4px;
-  height: 2px; border-radius: 2px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .25s ease;
-  opacity: .85;
+  top: 0; left: -150%;
+  width: 50%; height: 100%;
+  transform: skewX(-25deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  transition: left .6s ease;
 }
-.nav-links a:hover::after { transform: scaleX(1); }
-
-/* 8) Active nav item (works if you add aria-current="page" to that link) */
-.nav-links a[aria-current="page"] {
-  opacity: 1;
-  text-shadow: 0 0 1px rgba(255,255,255,.2);
+.btn:hover::after, .cta:hover::after { left: 160%; }
+/* Elevated hover lift */
+.card:hover { transform: translateY(-3px); }
+/* Premium link underline */
+.nav-links a { text-underline-offset: 4px; }
+.nav-links a:hover { text-decoration: underline; }
+/* Subtle glow on titles */
+h2 { text-shadow: 0 1px 0 rgba(255,255,255,.4); }
+body.dark h2 { text-shadow: 0 1px 0 rgba(0,0,0,.4); }
+/* Animated gradient border utility */
+.shine-border { position: relative; border-radius: 14px; }
+.shine-border::before {
+  content:"";
+  position:absolute; inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(255,255,255,.7), rgba(59,130,246,.6), rgba(255,255,255,.7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: spinGradient 6s linear infinite;
 }
-.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
-
-/* 9) Focus styles (keyboard accessibility) */
-:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-  border-radius: 8px;
-}
-
-/* 10) Page entrance animation (gentle + motion-safe) */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-main .card, main h2, .grid .card, .modal-content {
-  animation: fadeUp .45s ease both;
-}
-main h2 { animation-delay: .06s; }
-.grid .card { animation-delay: .08s; }
-
-/* 11) Modal backdrop: quicker, smoother open/close */
-.modal { transition: opacity .25s ease, visibility .25s ease; }
-
-/* 12) Handy separators inside cards (optional utility) */
-.card hr {
-  border: none; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(0,0,0,.12), transparent);
-  margin: 14px 0;
-}
-
-/* 13) Dark theme fine-tuning */
-body.dark .card { box-shadow: 0 12px 28px rgba(0,0,0,.5); }
-body.dark .nav-links a::after { opacity: .9; }
-
-/* 14) Respect users who prefer reduced motion */
+@keyframes spinGradient { to { transform: rotate(360deg); } }
+/* Motion safety */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
-  html { scroll-behavior: auto; }
 }
 
   </style>
 </head>
 <body>
-
   <nav>
     <h1>Rayan Bashawri's Website</h1>
     <div class="nav-links">
@@ -167,29 +128,27 @@ body.dark .nav-links a::after { opacity: .9; }
   </nav>
 
   <main>
-    <section class="card">
+    <section class="card shine-border">
       <h2><strong>Rayan Bashawri</strong></h2>
       <p><em>Business / Data Analyst with a background in Actuarial Science.</em></p>
       <p>Currently working as a Data Analyst within a pricing department at an <strong>Aramco subsidiary</strong>, revamping the pricing structure and providing deeper insights across the business.</p>
-
       <p><strong>My work mainly revolves around:</strong></p>
-      <ul>
-        <li class="pricing">Building, monitoring, and improving pricing models.</li>
-        <li class="dashboard">
+      <ul style="list-style:none;padding-left:0;margin-top:.4rem;">
+        <li style="margin:.6rem 0;"><span style="margin-right:8px;">📊</span>Building, monitoring, and improving pricing models.</li>
+        <li style="margin:.6rem 0;"><span style="margin-right:8px;">🏢</span>
           Building dashboards using <strong>Power BI</strong> to monitor business performance and highlight potentials and areas for improvement —
           by interacting closely with the <strong>Finance</strong>, <strong>Sales &amp; Marketing</strong>, and <strong>Supply Chain</strong> departments.
           I have extensive experience in <strong>optimization, Ad hoc business model changes, and pricing conditions</strong>,
           looking at the company from a <strong>360° view as a Business Analyst</strong>.
         </li>
-        <li class="automation">
+        <li style="margin:.6rem 0;"><span style="margin-right:8px;">⚙️</span>
           Automating workflows using <strong>Power BI dashboards</strong>, <strong>Python scripts</strong>, and <strong>R analytics</strong>.
           Python is used to <strong>pull files from emails</strong> and <strong>automate submissions</strong>, while R consolidates and centralizes data to run
           <strong>ad-hoc analyses</strong> and generate <strong>visual insights</strong>.
         </li>
-        <li class="analytics">Using R to apply machine learning on sales behavior from a pricing perspective to identify opportunities or trigger promotions.</li>
-        <li class="pnl">Building P&amp;L dashboards that monitor the price–mix effect of our consumers.</li>
+        <li style="margin:.6rem 0;"><span style="margin-right:8px;">🤖</span>Using R to apply machine learning on sales behavior from a pricing perspective to identify opportunities or trigger promotions.</li>
+        <li style="margin:.6rem 0;"><span style="margin-right:8px;">💰</span>Building P&amp;L dashboards that monitor the price–mix effect of our consumers.</li>
       </ul>
-
       <p style="margin-top:1rem;"><strong>My aim is to build an internal integrated ecosystem for the business to maximize its potential and provide data-driven visibility across all operations.</strong></p>
     </section>
   </main>
@@ -197,11 +156,13 @@ body.dark .nav-links a::after { opacity: .9; }
   <script>
     const t=document.getElementById('themeToggle');
     if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');t.textContent='☀️';}
-    t.addEventListener('click',()=>{document.body.classList.toggle('dark');
+    t.addEventListener('click',()=>{
+      document.body.classList.toggle('dark');
       t.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
-      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
+      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');
+    });
   </script>
-  
+
 <script>
   (function(){
     var here = (location.pathname.split('/').pop() || 'index.html');
@@ -210,6 +171,25 @@ body.dark .nav-links a::after { opacity: .9; }
       if (target === here) a.setAttribute('aria-current','page');
       if ((here === '' || here === '/') && target === 'index.html') a.setAttribute('aria-current','page');
     });
+  })();
+</script>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.card, .grid .card, h2');
+    els.forEach(function(el){
+      el.style.opacity=0; el.style.transform='translateY(8px)';
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.transition='opacity .45s ease, transform .45s ease';
+          e.target.style.opacity=1; e.target.style.transform='translateY(0)';
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:.08});
+    els.forEach(function(el){ io.observe(el); });
   })();
 </script>
 
