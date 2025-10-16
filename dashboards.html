@@ -64,6 +64,121 @@
     .close{ background:var(--brand); color:#fff; border:none; padding:8px 12px; border-radius:8px; float:right; cursor:pointer; margin-bottom:8px; }
     @media (max-width:700px){ .grid{ grid-template-columns:1fr; } .card{ padding:16px; } }
   </style>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --nav-h: 56px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding-top: calc(var(--nav-h) + var(--safe-top));
+      padding-bottom: var(--safe-bottom);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img, video { max-width: 100%; height: auto; display: block; }
+    .gradient-hero {
+      position: relative;
+      min-height: 40svh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      border-radius: 20px;
+      margin: 12px;
+      padding: clamp(24px, 4svh, 56px);
+      background: linear-gradient(130deg, #4f46e5, #06b6d4, #10b981, #8b5cf6);
+      background-size: 300% 300%;
+      animation: moveGradient 12s ease-in-out infinite;
+    }
+    @keyframes moveGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero-title { font-size: clamp(28px, 5svw, 56px); font-weight: 800; letter-spacing: 0.2px; }
+    .hero-sub   { font-size: clamp(14px, 2.4svw, 18px); opacity: 0.95; max-width: 900px; margin-inline: auto; }
+    .container { width: min(1200px, 94%); margin: 24px auto; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      padding: 18px;
+    }
+    .card h3 { margin-top: 0; }
+    :root {
+      --brand1: #1e40af; /* blue-800 */
+      --brand2: #3b82f6; /* blue-500 */
+      --link: #ffffff;
+      --linkHoverBg: rgba(255,255,255,0.18);
+      --navBorder: rgba(255,255,255,0.25);
+    }
+    nav.site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      padding: 0 max(12px, env(safe-area-inset-left, 12px)) 0 max(12px, env(safe-area-inset-right, 12px));
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      background: linear-gradient(90deg, var(--brand1), var(--brand2));
+      color: var(--link);
+      border-bottom: 1px solid var(--navBorder);
+      z-index: 1000;
+    }
+    nav.site-nav a { text-decoration: none; color: var(--link); font-weight: 600; padding: 8px 12px; border-radius: 10px; display: inline-block; }
+    nav.site-nav a:hover { background: var(--linkHoverBg); }
+    nav.site-nav a.active { background: rgba(255,255,255,0.32); }
+    nav.site-nav a { text-decoration: none; color: var(--link); font-weight: 600; padding: 8px 12px; border-radius: 10px; display: inline-block; }
+    nav.site-nav a:hover { background: var(--linkHoverBg); }
+    .dashboard-image, .dashboard-embed {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: contain;
+      background: #0b1220;
+      border-radius: 14px;
+    }
+    .modal { max-height: 80svh; overflow: auto; }
+    footer { padding-bottom: var(--safe-bottom); }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav = document.querySelector('nav.site-nav');
+      if (nav) {
+        const h = Math.ceil(nav.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+    }, { once: true });
+  </script>
+
+
+  <script>
+    // Set active nav link based on current page
+    document.addEventListener('DOMContentLoaded', () => {
+      const here = location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('nav.site-nav a').forEach(a => {
+        const href = (a.getAttribute('href') || '').split('/').pop();
+        if (href === here) a.classList.add('active');
+      });
+      const nav = document.querySelector('nav.site-nav');
+      if (nav) {
+        const h = Math.ceil(nav.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+    }, { once: true });
+  </script>
+
 </head>
 <body>
   
@@ -77,7 +192,8 @@
       <a href="contact.html">✉️ Contact</a>
       <button class="theme-toggle" id="themeToggle">🌙</button>
     </div>
-  </nav>
+    <a href="fmcg.html">FMCG Insights</a>
+</nav>
 
   <main>
     <h2>Dashboard Samples</h2>
@@ -86,7 +202,7 @@
   <div class="modal" id="modal">
     <div class="modal-content">
       <button class="close" id="closeBtn">✖</button>
-      <img id="modalImg" src="" alt="Dashboard preview">
+      <img class="dashboard-image" id="modalImg" src="" alt="Dashboard preview">
     </div>
   </div>
   
@@ -127,7 +243,7 @@
     const grid=document.getElementById('grid');
     dashboards.forEach(d=>{
       const c=document.createElement('div'); c.className='card';
-      c.innerHTML=`<div class="thumb-wrap"><img src="${d.file}" alt="${d.name}" loading="lazy"></div><div class="title">${d.name}</div>`;
+      c.innerHTML=`<div class="thumb-wrap"><img class="dashboard-image" src="${d.file}" alt="${d.name}" loading="lazy"></div><div class="title">${d.name}</div>`;
       c.addEventListener('click',()=>openModal(d.file));
       grid.appendChild(c);
     });

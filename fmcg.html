@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FMCG Insights</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --nav-h: 56px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding-top: calc(var(--nav-h) + var(--safe-top));
+      padding-bottom: var(--safe-bottom);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img, video { max-width: 100%; height: auto; display: block; }
+    .gradient-hero {
+      position: relative;
+      min-height: 40svh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      border-radius: 20px;
+      margin: 12px;
+      padding: clamp(24px, 4svh, 56px);
+      background: linear-gradient(130deg, #4f46e5, #06b6d4, #10b981, #8b5cf6);
+      background-size: 300% 300%;
+      animation: moveGradient 12s ease-in-out infinite;
+    }
+    @keyframes moveGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero-title { font-size: clamp(28px, 5svw, 56px); font-weight: 800; letter-spacing: 0.2px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+    .hero-sub   { font-size: clamp(14px, 2.4svw, 18px); opacity: 0.95; max-width: 900px; margin-inline: auto; }
+    .container { width: min(1200px, 94%); margin: 24px auto; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      padding: 18px;
+    }
+    .card h3 { margin-top: 0; }
+    :root {
+      --brand1: #1e40af; /* blue-800 */
+      --brand2: #3b82f6; /* blue-500 */
+      --link: #ffffff;
+      --linkHoverBg: rgba(255,255,255,0.18);
+      --navBorder: rgba(255,255,255,0.25);
+    }
+    nav.site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      padding: 0 max(12px, env(safe-area-inset-left, 12px)) 0 max(12px, env(safe-area-inset-right, 12px));
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      background: linear-gradient(90deg, var(--brand1), var(--brand2));
+      color: var(--link);
+      border-bottom: 1px solid var(--navBorder);
+      z-index: 1000;
+    }
+    nav.site-nav a { text-decoration: none; color: var(--link); font-weight: 600; padding: 8px 12px; border-radius: 10px; display: inline-block; }
+    nav.site-nav a:hover { background: var(--linkHoverBg); }
+    nav.site-nav a.active { background: rgba(255,255,255,0.32); }
+    nav.site-nav a { text-decoration: none; color: var(--link); font-weight: 600; padding: 8px 12px; border-radius: 10px; display: inline-block; }
+    nav.site-nav a:hover { background: var(--linkHoverBg); }
+    .dashboard-image, .dashboard-embed {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: contain;
+      background: #0b1220;
+      border-radius: 14px;
+    }
+    .modal { max-height: 80svh; overflow: auto; }
+    footer { padding-bottom: var(--safe-bottom); }
+  
+    /* Card actions */
+    .card { position: relative; }
+    .card .more-btn {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 0;
+      background: rgba(59,130,246,0.12);
+      color: #1e40af;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .card .more-btn:hover { background: rgba(59,130,246,0.22); }
+    .card .details {
+      position: absolute;
+      inset: 8px;
+      background: rgba(255,255,255,0.98);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .18s ease, transform .18s ease;
+      overflow: auto;
+      max-height: calc(100% - 16px);
+    }
+    .card.show-details .details { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    /* Optional desktop hover reveal */
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover .details { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    }
+    .details h4 { margin: 0 0 8px 0; }
+    .details ul { margin: 0 0 8px 18px; padding: 0; }
+    .details .close {
+      position: sticky; top: 0; float: right;
+      border: 0; background: #1e40af; color: #fff; border-radius: 8px; padding: 6px 10px; cursor: pointer;
+      margin-left: 8px;
+    }
+
+
+    /* Interactive card effects */
+    .card.interactive {
+      will-change: transform;
+      transform-style: preserve-3d;
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .card.interactive:hover {
+      box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+    }
+    .card.interactive .more-btn {
+      position: relative;
+      overflow: hidden; /* for ripple */
+    }
+    .card.interactive::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 16px;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(59,130,246,0.25), rgba(16,185,129,0.18), rgba(139,92,246,0.18));
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .card.interactive:hover::after { opacity: 1; }
+
+</style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav = document.querySelector('nav.site-nav');
+      if (nav) {
+        const h = Math.ceil(nav.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+    }, { once: true });
+  </script>
+
+
+  <script>
+    // Set active nav link based on current page
+    document.addEventListener('DOMContentLoaded', () => {
+      const here = location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('nav.site-nav a').forEach(a => {
+        const href = (a.getAttribute('href') || '').split('/').pop();
+        if (href === here) a.classList.add('active');
+      });
+      const nav = document.querySelector('nav.site-nav');
+      if (nav) {
+        const h = Math.ceil(nav.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+    }, { once: true });
+  </script>
+
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="dashboards.html">Dashboards</a>
+    <a href="resume.html">Resume</a>
+    <a href="personality.html">Personality</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="fmcg.html">FMCG Insights</a>
+  </nav>
+
+  <header class="gradient-hero">
+    <div>
+      <h1 class="hero-title">FMCG Insights — My Journey</h1>
+      <p class="hero-sub">Key performance indicators from leading FMCG retail operations — covering sales, margin, availability, and supply-chain efficiency. Dashboards include Sales, Price Elasticity, Volume, Target Phasing, Projects, Availability, Inventory, Supply Chain ERP, P&L, Margin Analysis, Space & Display, Promotions, and Automation insights.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    
+    <section class="grid">
+      <article class="card">
+        <h3>Sales Dashboard</h3>
+        <p>Track YTD, MTD, and daily sales vs targets and margin.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Sales KPIs</h4>
+          <ul>
+            <li>Daily / MTD / YTD vs Budget &amp; LY</li>
+            <li>GP%, GP/L, mix vs plan</li>
+            <li>Run-rate to target; required pace</li>
+          </ul>
+          <h4>Views</h4>
+          <ul>
+            <li>By Family / Category / Channel</li>
+            <li>Store heatmaps &amp; region ladders</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Price Elasticity</h3>
+        <p>Model price sensitivity and forecast promo impact.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Method</h4>
+          <ul>
+            <li>Elasticity bands by category &amp; SKU</li>
+            <li>Promo uplift vs cannibalization</li>
+            <li>Scenario pricing &amp; expected GP</li>
+          </ul>
+          <h4>Outputs</h4>
+          <ul>
+            <li>Recommended price ranges</li>
+            <li>Promo depth guidelines</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Volume &amp; Mix</h3>
+        <p>Monitor product and channel volumes with deep drill-downs.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>KPIs</h4>
+          <ul>
+            <li>Litres/Units vs LY &amp; Budget</li>
+            <li>Mix shifts: premium vs value tiers</li>
+            <li>Contribution by SKU family</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Target Phasing</h3>
+        <p>Align monthly and weekly targets with budgets.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Phasing</h4>
+          <ul>
+            <li>Seasonality curves (Ramadan, BTS, etc.)</li>
+            <li>Bottom-up store/channel allocation</li>
+            <li>Alerting for under/over-performance</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Project Trackers</h3>
+        <p>Track key campaigns: Ramadan, Back-to-School, seasonal.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Scope</h4>
+          <ul>
+            <li>Sell-in / Sell-out trend lines</li>
+            <li>Display compliance &amp; store photos</li>
+            <li>ROI vs target and post-mortems</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Availability</h3>
+        <p>Measure on-shelf availability by region and channel.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>KPIs</h4>
+          <ul>
+            <li>OSA %, OOS events &amp; duration</li>
+            <li>Phantom inventory &amp; gap flags</li>
+            <li>Supplier OTIF impact on OSA</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Inventory</h3>
+        <p>Track aged stock, turnover, and logistics efficiency.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Views</h4>
+          <ul>
+            <li>DOS, weeks of coverage, turns</li>
+            <li>Aged stock alerts &amp; markdown guardrails</li>
+            <li>Inbound pipeline vs forecast</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Supply Chain ERP</h3>
+        <p>Integrate ERP data for </p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Scope</h4>
+          <ul>
+            <li>PO status, lead times, GR/IR</li>
+            <li>WH capacity &amp; transfer times</li>
+            <li>DC to store flow health</li>
+          
+            <li><strong>Fill Rate / OTIF:</strong> Supplier-week delivery performance (On-Time %, In-Full %, OTIF %, short-ships, late receipts) with drill to PO/SKU.</li>
+    </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>P&amp;L &amp; Margin</h3>
+        <p>Profitability and margin optimization by product/supplier.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>KPIs</h4>
+          <ul>
+            <li>Revenue, GP, GP%, GP/L</li>
+            <li>Rebates, discounts, promo funding</li>
+            <li>Price-mix waterfall attribution</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Promotions</h3>
+        <p>Evaluate campaign ROI and weekly leaflet performance.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Promo KPIs</h4>
+          <ul>
+            <li>Uplift vs baseline, net GP impact</li>
+            <li>Cannibalization &amp; halo effects</li>
+            <li>Slotting &amp; location ROI</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Weekly Promotion Post‑Mortem</h3>
+        <p>Structured review of last week’s promotions and learnings.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Scope</h4>
+          <ul>
+            <li>Plan vs actual uplift and GP</li>
+            <li>Execution audit: price tags, displays, stockouts</li>
+            <li>Supplier funding realization and claims</li>
+          </ul>
+          <h4>Outputs</h4>
+          <ul>
+            <li>Keep/stop/adjust recommendations</li>
+            <li>Depth &amp; mechanics guidance (bundle, BOGO, % off)</li>
+            <li>Next-week corrective actions</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Automation</h3>
+        <p>Centralize reporting and reduce manual workflows.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Focus</h4>
+          <ul>
+            <li>Scheduled refresh &amp; data quality checks</li>
+            <li>Approval workflows &amp; alerts</li>
+            <li>Self-serve dashboards for teams</li>
+          </ul>
+        </div>
+      </article>
+    
+      <article class="card interactive">
+        <h3>Master File Consolidation</h3>
+        <p>One table to power availability, sales, margin, fill rate/OTIF, stock, and DOS.</p>
+        <button class="more-btn">Details</button>
+        <div class="details">
+          <button class="close">Close</button>
+          <h4>Why it matters</h4>
+          <ul>
+            <li>Single source of truth for executive and operational dashboards.</li>
+            <li>Faster month-end and weekly reviews with consistent dimensions.</li>
+            <li>Easy joins across Sales, Inventory, Availability, and OTIF.</li>
+          </ul>
+          <h4>Recommended Columns</h4>
+          <ul>
+            <li>Date, Week, Month, Year</li>
+            <li>Supplier, PO Number, SKU, Category, Family</li>
+            <li>Channel, Region, Store</li>
+            <li>Sales_Qty, Sales_Value, Margin_Value, Margin_%</li>
+            <li>Availability_%, OSA_%</li>
+            <li>Stock_On_Hand, Receipts_Qty, DOS</li>
+            <li>Fill_Rate_%, On_Time_%, In_Full_%, OTIF_%</li>
+          </ul>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+            <button class="more-btn dlMasterTemplate">Download CSV Template</button>
+          </div>
+        </div>
+      </article>
+
+</section>
+
+    
+
+    
+  </main>
+
+  <footer class="container" style="opacity:0.8; font-size:13px; margin-bottom: 16px;">
+    © <span id="year"></span> Rayan Bashawri — FMCG Insights
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const box = document.getElementById('insightBox');
+    const saved = document.getElementById('savedNote');
+    const KEY = 'fmcg_insights_note_v1';
+
+    const existing = localStorage.getItem(KEY);
+    if (existing) box.value = existing;
+
+    let t;
+    box.addEventListener('input', () => {
+      clearTimeout(t);
+      t = setTimeout(() => { 
+        localStorage.setItem(KEY, box.value);
+        saved.textContent = 'Saved locally at ' + new Date().toLocaleTimeString();
+      }, 400);
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const blob = new Blob([box.value || ''], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'fmcg_insights.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      localStorage.removeItem(KEY);
+      box.value = '';
+      saved.textContent = 'Cleared.';
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.card .more-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const card = e.target.closest('.card');
+          if (card) card.classList.toggle('show-details');
+        });
+      });
+      document.querySelectorAll('.card .details .close').forEach(cl => {
+        cl.addEventListener('click', (e) => {
+          const card = e.target.closest('.card');
+          if (card) card.classList.remove('show-details');
+        });
+      });
+    }, { once: true });
+  </script>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('dlMasterTemplate');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const headers = [
+            'date','week','month','year',
+            'supplier','po_number','sku','category','family',
+            'channel','region','store',
+            'sales_qty','sales_value','margin_value','margin_pct',
+            'availability_pct','osa_pct',
+            'stock_on_hand','receipts_qty','dos',
+            'fill_rate_pct','on_time_pct','in_full_pct','otif_pct'
+          ];
+          const sample = [
+            '2025-10-01','40','10','2025',
+            'Supplier A','PO12345','SKU-001','Beverages','Cola',
+            'Hypermarket','Riyadh','Store-101',
+            '120','2400','360','15',
+            '96','94',
+            '850','300','6.2',
+            '98','97','99','96'
+          ];
+          const csv = headers.join(',') + '
+' + sample.join(',');
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'master_consolidation_template.csv';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        });
+      }
+    }, { once: true });
+  </script>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tilt effect for interactive cards (desktop hover)
+      document.querySelectorAll('.card.interactive').forEach(card => {
+        const handleMove = (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const cx = x / rect.width - 0.5;
+          const cy = y / rect.height - 0.5;
+          const rotateX = (cy * -6).toFixed(2);
+          const rotateY = (cx *  6).toFixed(2);
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        };
+        const reset = () => { card.style.transform = 'rotateX(0deg) rotateY(0deg)'; };
+        card.addEventListener('mousemove', handleMove);
+        card.addEventListener('mouseleave', reset);
+        // On touch devices, no tilt (keeps performance high)
+        card.addEventListener('touchstart', () => { card.style.transform = 'none'; }, {passive:true});
+      });
+
+      // Ripple effect on .more-btn
+      document.querySelectorAll('.more-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const circle = document.createElement('span');
+          const d = Math.max(rect.width, rect.height);
+          circle.style.width = circle.style.height = d + 'px';
+          circle.style.left = (e.clientX - rect.left - d/2) + 'px';
+          circle.style.top  = (e.clientY - rect.top  - d/2) + 'px';
+          circle.style.position = 'absolute';
+          circle.style.borderRadius = '50%';
+          circle.style.background = 'rgba(255,255,255,0.45)';
+          circle.style.transform = 'scale(0)';
+          circle.style.transition = 'transform .35s ease, opacity .6s ease';
+          circle.className = 'ripple';
+          btn.appendChild(circle);
+          requestAnimationFrame(() => { circle.style.transform = 'scale(1.8)'; circle.style.opacity = '0'; });
+          setTimeout(() => circle.remove(), 600);
+        });
+      });
+
+      // CSV template download button inside the Master File card
+      document.querySelectorAll('.dlMasterTemplate').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const headers = [
+            'date','week','month','year',
+            'supplier','po_number','sku','category','family',
+            'channel','region','store',
+            'sales_qty','sales_value','margin_value','margin_pct',
+            'availability_pct','osa_pct',
+            'stock_on_hand','receipts_qty','dos',
+            'fill_rate_pct','on_time_pct','in_full_pct','otif_pct'
+          ];
+          const sample = [
+            '2025-10-01','40','10','2025',
+            'Supplier A','PO12345','SKU-001','Beverages','Cola',
+            'Hypermarket','Riyadh','Store-101',
+            '120','2400','360','15',
+            '96','94',
+            '850','300','6.2',
+            '98','97','99','96'
+          ];
+          const csv = headers.join(',') + '
+' + sample.join(',');
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'master_consolidation_template.csv';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        });
+      });
+    }, { once: true });
+  </script>
+
+</body>
+</html>
