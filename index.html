@@ -78,6 +78,26 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
 .experience-floating-popup li{margin:6px 0}
 @media (max-width:720px){.experience-floating-popup{left:14px!important;right:14px!important;top:auto!important;bottom:18px!important;width:auto}}
 
+
+.dashboard-hover-showcase{margin-top:22px;border-radius:var(--radius-xl);padding:24px;overflow:visible}
+.dashboard-hover-trigger{position:relative;cursor:help;border-radius:24px;padding:24px;background:linear-gradient(145deg,rgba(10,40,76,.82),rgba(5,18,37,.92));border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 58px rgba(0,0,0,.28),0 0 30px rgba(56,189,248,.12);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.dashboard-hover-trigger:hover,.dashboard-hover-trigger:focus-within{z-index:25;transform:translateY(-2px);border-color:rgba(255,255,255,.28);box-shadow:0 22px 62px rgba(0,0,0,.34),0 0 34px rgba(56,189,248,.18),0 0 42px rgba(245,130,32,.13)}
+.dashboard-preview-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.dashboard-preview-mini{height:115px;border-radius:18px;background:linear-gradient(135deg,rgba(11,114,185,.20),rgba(207,18,63,.12),rgba(245,130,32,.14));border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;color:#dceeff;font-weight:900;text-align:center;padding:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.dashboard-hover-note{display:inline-flex;margin-top:16px;color:#8fd7ff;font-weight:850;font-size:.82rem;letter-spacing:.02em}
+.dashboard-floating-popup{position:fixed;z-index:9999;width:min(980px,calc(100vw - 28px));max-height:min(82vh,760px);overflow:auto;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(8px) scale(.98);transition:opacity .18s ease,transform .18s ease,visibility .18s ease;padding:18px;border-radius:26px;background:linear-gradient(145deg,rgba(3,14,29,.98),rgba(8,39,72,.98));border:1px solid rgba(255,255,255,.22);box-shadow:0 24px 70px rgba(0,0,0,.50),0 0 42px rgba(11,114,185,.22),0 0 46px rgba(245,130,32,.14);backdrop-filter:blur(14px) saturate(145%)}
+.dashboard-floating-popup.show{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.dashboard-popup-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}
+.dashboard-popup-head h4{margin:0;font-size:1.12rem;color:#fff}
+.dashboard-popup-head p{margin:6px 0 0;color:#c5d6e8;line-height:1.55}
+.dashboard-popup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.dashboard-popup-card{border-radius:20px;overflow:hidden;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14)}
+.dashboard-popup-card img{display:block;width:100%;height:auto}
+.dashboard-popup-meta{padding:14px}
+.dashboard-popup-meta h5{margin:0 0 6px;color:#fff;font-size:1rem}
+.dashboard-popup-meta p{margin:0;color:#c7d8ea;line-height:1.55;font-size:.9rem}
+@media (max-width:1020px){.dashboard-popup-grid{grid-template-columns:1fr}.dashboard-preview-row{grid-template-columns:1fr}.dashboard-floating-popup{left:14px!important;right:14px!important;top:auto!important;bottom:18px!important;width:auto}}
+
 @media (max-width:1020px){.hero{grid-template-columns:1fr}.skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flow{grid-template-columns:repeat(3,minmax(0,1fr))}.dashboard-gallery{grid-template-columns:1fr}.nav-inner{align-items:flex-start;flex-direction:column;padding:14px 0}.brand-mark{min-width:0}.section{padding-top:62px}.hero{padding-top:48px}h1{letter-spacing:-2.1px}}@media (max-width:720px){.grid-3,.grid-2,.skill-grid,.flow,.dashboard-gallery{grid-template-columns:1fr}.timeline-item{grid-template-columns:1fr}.experience-popup{left:18px;right:18px;bottom:calc(100% - 8px);font-size:.9rem}.section,.nav-inner,.footer{width:min(100% - 24px,var(--max))}.hero{gap:18px}h1{font-size:clamp(2.25rem,15vw,4rem);letter-spacing:-1.6px}.stats{grid-template-columns:1fr}.nav-links{width:100%;justify-content:flex-start}.pdf-frame{height:68vh;min-height:520px}.download-strip{align-items:flex-start;flex-direction:column}.card,.skill-tile,.panel,.capability-showcase{padding:20px}}
 
   </style>
@@ -144,23 +164,19 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
         <article class="skill-tile"><h3>Automation &amp; data</h3><p>Power BI, Power Query, SQL, Python, R, VBA, advanced Excel, email and file automation, centralized datasets, and repeatable workflows.</p><div class="tags"><span class="tag blue">Power BI</span><span class="tag red">Python</span><span class="tag orange">R</span><span class="tag blue">SQL</span></div></article>
         <article class="skill-tile"><h3>Actuarial &amp; risk</h3><p>Loss ratio monitoring, pricing analysis, reserving logic, IBNR tables, frequency and severity analysis, credibility thinking, and risk evaluation.</p><div class="tags"><span class="tag blue">Actuarial</span><span class="tag red">Risk</span><span class="tag orange">IBNR</span></div></article>
       </div>
-      <article class="panel capability-showcase accent-blue">
-        <div class="section-head" style="margin-bottom:0;">
-          <div>
-            <div class="kicker">Dashboards</div>
-            <h2 style="font-size:clamp(1.65rem,3vw,2.35rem);margin-bottom:10px;">Examples of the dashboard capability.</h2>
-            <p>Selected Power BI style examples showing how I turn pricing and commercial data into executive visibility, comparison logic, price mix views, and market level decision support.</p>
+      <article class="panel dashboard-hover-showcase accent-blue">
+        <div class="dashboard-hover-trigger" tabindex="0">
+          <div class="kicker">Dashboards</div>
+          <h2 style="font-size:clamp(1.65rem,3vw,2.35rem);margin-bottom:10px;">Dashboard capability showcase.</h2>
+          <p style="color:#c5d6e8;line-height:1.75;margin-bottom:0;">I build Power BI style executive dashboards that connect pricing, commercial performance, margin movement, and decision support into one view. The dashboard screenshots are hidden by default to keep the page clean.</p>
+          <div class="dashboard-preview-row">
+            <div class="dashboard-preview-mini">Country performance overview</div>
+            <div class="dashboard-preview-mini">Country deep dive and action view</div>
           </div>
+          <span class="dashboard-hover-note">Hover or click to preview dashboard screenshots</span>
         </div>
-        <div class="dashboard-gallery">
-          <article class="dashboard-card">
-            <img src="assets/dashboard-country-overview.png" alt="Country level dashboard overview with revenue, gross profit, price mix effect, and volume growth visuals" />
-            <div class="dashboard-meta">
-              <h3>Country performance overview</h3>
-              <p>An executive dashboard view combining revenue, COGS, rebate, gross profit, volume, price mix effect, gross profit margin, unit gross profit margin, and country bubble analysis.</p>
-              <div class="dashboard-chip-row"><span class="dashboard-chip">Executive summary</span><span class="dashboard-chip">Price mix effect</span><span class="dashboard-chip">Margin components</span></div>
-            </div>
-          </article>
+      </article>
+
           <article class="dashboard-card">
             <img src="assets/dashboard-country-deep-dive.png" alt="Detailed country dashboard with monthly volume, price comparison, and decision table" />
             <div class="dashboard-meta">
