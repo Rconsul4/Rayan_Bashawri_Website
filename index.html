@@ -100,7 +100,16 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
 
 @media (max-width:1020px){.hero{grid-template-columns:1fr}.skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flow{grid-template-columns:repeat(3,minmax(0,1fr))}.dashboard-gallery{grid-template-columns:1fr}.nav-inner{align-items:flex-start;flex-direction:column;padding:14px 0}.brand-mark{min-width:0}.section{padding-top:62px}.hero{padding-top:48px}h1{letter-spacing:-2.1px}}@media (max-width:720px){.grid-3,.grid-2,.skill-grid,.flow,.dashboard-gallery{grid-template-columns:1fr}.timeline-item{grid-template-columns:1fr}.experience-popup{left:18px;right:18px;bottom:calc(100% - 8px);font-size:.9rem}.section,.nav-inner,.footer{width:min(100% - 24px,var(--max))}.hero{gap:18px}h1{font-size:clamp(2.25rem,15vw,4rem);letter-spacing:-1.6px}.stats{grid-template-columns:1fr}.nav-links{width:100%;justify-content:flex-start}.pdf-frame{height:68vh;min-height:520px}.download-strip{align-items:flex-start;flex-direction:column}.card,.skill-tile,.panel,.capability-showcase{padding:20px}}
 
-  </style>
+  
+/* Safety: old dashboard image gallery must never display directly on the page */
+.dashboard-gallery,
+.dashboard-card,
+.dashboard-card img,
+.dashboard-meta {
+  display: none !important;
+}
+
+</style>
 </head>
 <body class="home">
   <nav class="site-nav" aria-label="Primary navigation">
@@ -164,11 +173,12 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
         <article class="skill-tile"><h3>Automation &amp; data</h3><p>Power BI, Power Query, SQL, Python, R, VBA, advanced Excel, email and file automation, centralized datasets, and repeatable workflows.</p><div class="tags"><span class="tag blue">Power BI</span><span class="tag red">Python</span><span class="tag orange">R</span><span class="tag blue">SQL</span></div></article>
         <article class="skill-tile"><h3>Actuarial &amp; risk</h3><p>Loss ratio monitoring, pricing analysis, reserving logic, IBNR tables, frequency and severity analysis, credibility thinking, and risk evaluation.</p><div class="tags"><span class="tag blue">Actuarial</span><span class="tag red">Risk</span><span class="tag orange">IBNR</span></div></article>
       </div>
+      
       <article class="panel dashboard-hover-showcase accent-blue">
         <div class="dashboard-hover-trigger" tabindex="0">
           <div class="kicker">Dashboards</div>
           <h2 style="font-size:clamp(1.65rem,3vw,2.35rem);margin-bottom:10px;">Dashboard capability showcase.</h2>
-          <p style="color:#c5d6e8;line-height:1.75;margin-bottom:0;">I build Power BI style executive dashboards that connect pricing, commercial performance, margin movement, and decision support into one view. The dashboard screenshots are hidden by default to keep the page clean.</p>
+          <p style="color:#c5d6e8;line-height:1.75;margin-bottom:0;">I build Power BI style executive dashboards that connect pricing, commercial performance, margin movement, and decision support into one view. The screenshots are hidden by default to keep the page clean.</p>
           <div class="dashboard-preview-row">
             <div class="dashboard-preview-mini">Country performance overview</div>
             <div class="dashboard-preview-mini">Country deep dive and action view</div>
@@ -176,20 +186,9 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
           <span class="dashboard-hover-note">Hover or click to preview dashboard screenshots</span>
         </div>
       </article>
-
-          <article class="dashboard-card">
-            <img src="assets/dashboard-country-deep-dive.png" alt="Detailed country dashboard with monthly volume, price comparison, and decision table" />
-            <div class="dashboard-meta">
-              <h3>Country deep dive and action view</h3>
-              <p>A more detailed analytical layout with monthly volume trends, UGP and volume scatter views, country prioritization, decision tables, price versus prior year comparison, and mix contribution analysis.</p>
-              <div class="dashboard-chip-row"><span class="dashboard-chip">Deep dive</span><span class="dashboard-chip">Decision support</span><span class="dashboard-chip">Commercial actioning</span></div>
-            </div>
-          </article>
-        </div>
-      </article>
     </section>
 
-    <section class="section" id="impact">
+<section class="section" id="impact">
       <div class="section-head"><div><div class="kicker">Impact flow</div><h2>How I work.</h2><p>A practical workflow for turning messy business activity into visibility, discipline, and measurable financial value.</p></div></div>
       <div class="flow">
         <article class="flow-step"><span class="num">01</span><h3>Analyse</h3><p>Understand the business question, risk context, portfolio objective, and decision needed.</p></article>
@@ -300,6 +299,102 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
 
   window.addEventListener('resize', () => {
     if(activeCard && popup.classList.contains('show')) positionPopup(activeCard);
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  const trigger = document.querySelector('.dashboard-hover-trigger');
+  if(!trigger) return;
+
+  const popup = document.createElement('div');
+  popup.className = 'dashboard-floating-popup';
+  popup.setAttribute('role', 'tooltip');
+  popup.innerHTML = `
+    <div class="dashboard-popup-head">
+      <div>
+        <h4>Dashboard capability examples</h4>
+        <p>Examples of pricing and commercial analytics dashboards with executive summaries, price mix views, margin components, country trends, and action tables.</p>
+      </div>
+    </div>
+    <div class="dashboard-popup-grid">
+      <article class="dashboard-popup-card">
+        <img src="assets/dashboard-country-overview.png" alt="Country level dashboard overview with revenue, gross profit, price mix effect, and volume growth visuals" />
+        <div class="dashboard-popup-meta">
+          <h5>Country performance overview</h5>
+          <p>Executive view combining revenue, COGS, rebate, gross profit, volume, price mix effect, gross profit margin, unit gross profit margin, and country bubble analysis.</p>
+        </div>
+      </article>
+      <article class="dashboard-popup-card">
+        <img src="assets/dashboard-country-deep-dive.png" alt="Detailed country dashboard with monthly volume, price comparison, and decision table" />
+        <div class="dashboard-popup-meta">
+          <h5>Country deep dive and action view</h5>
+          <p>Detailed layout with monthly volume trends, UGP and volume scatter views, decision tables, price versus prior year comparison, and mix contribution analysis.</p>
+        </div>
+      </article>
+    </div>
+  `;
+  document.body.appendChild(popup);
+
+  let hideTimer = null;
+  let isPinned = false;
+
+  function positionPopup(){
+    const rect = trigger.getBoundingClientRect();
+    const gap = 12;
+    const popupRect = popup.getBoundingClientRect();
+
+    let left = rect.left + (rect.width / 2) - (popupRect.width / 2);
+    let top = rect.bottom + gap;
+
+    if (top + popupRect.height > window.innerHeight - 14) {
+      top = rect.top - popupRect.height - gap;
+    }
+    left = Math.max(14, Math.min(left, window.innerWidth - popupRect.width - 14));
+    top = Math.max(14, Math.min(top, window.innerHeight - popupRect.height - 14));
+
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  function show(){
+    clearTimeout(hideTimer);
+    popup.classList.add('show');
+    requestAnimationFrame(positionPopup);
+  }
+
+  function hide(){
+    if(isPinned) return;
+    hideTimer = setTimeout(() => popup.classList.remove('show'), 120);
+  }
+
+  trigger.addEventListener('mouseenter', show);
+  trigger.addEventListener('mouseleave', hide);
+  trigger.addEventListener('focusin', show);
+  trigger.addEventListener('focusout', hide);
+  trigger.addEventListener('click', (event) => {
+    isPinned = !isPinned;
+    if(isPinned) show();
+    else popup.classList.remove('show');
+    event.stopPropagation();
+  });
+
+  popup.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+  popup.addEventListener('mouseleave', hide);
+
+  document.addEventListener('click', () => {
+    isPinned = false;
+    popup.classList.remove('show');
+  });
+
+  window.addEventListener('scroll', () => {
+    if(popup.classList.contains('show')) positionPopup();
+  }, {passive:true});
+
+  window.addEventListener('resize', () => {
+    if(popup.classList.contains('show')) positionPopup();
   });
 })();
 </script>
