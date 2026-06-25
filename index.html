@@ -91,7 +91,52 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
 
 @media (max-width:1020px){.hero{grid-template-columns:1fr}.skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flow{grid-template-columns:repeat(3,minmax(0,1fr))}.dashboard-gallery{grid-template-columns:1fr}.nav-inner{align-items:center;flex-direction:row;padding:0}.brand-mark{min-width:0}.section{padding-top:62px}.hero{padding-top:48px}h1{letter-spacing:-2.1px}}@media (max-width:720px){.grid-3,.grid-2,.skill-grid,.flow,.dashboard-gallery{grid-template-columns:1fr}.timeline-item{grid-template-columns:1fr}.experience-popup{left:18px;right:18px;bottom:calc(100% - 8px);font-size:.9rem}.section,.nav-inner,.footer{width:min(100% - 24px,var(--max))}.hero{gap:18px}h1{font-size:clamp(2.25rem,15vw,4rem);letter-spacing:-1.6px}.stats{grid-template-columns:1fr}.nav-links{width:auto;max-width:100%;justify-content:flex-end}.pdf-frame{height:68vh;min-height:520px}.download-strip{align-items:flex-start;flex-direction:column}.card,.skill-tile,.panel,.capability-showcase{padding:20px}}
 
-  </style>
+  
+/* Mobile navigation fix: show the full menu vertically instead of cutting off links */
+@media (max-width:720px){
+  .site-nav{position:relative;}
+  .nav-inner{
+    width:min(100% - 28px,var(--max))!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:flex-start!important;
+    gap:18px!important;
+    padding:18px 0 20px!important;
+    min-height:auto!important;
+  }
+  .brand-mark{
+    width:100%!important;
+    min-width:0!important;
+  }
+  .brand-copy strong{font-size:1.06rem!important;}
+  .brand-copy span{font-size:.84rem!important;}
+  .nav-links{
+    width:100%!important;
+    max-width:100%!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:14px 12px!important;
+    overflow:visible!important;
+    white-space:normal!important;
+    justify-content:stretch!important;
+  }
+  .nav-links a{
+    width:100%!important;
+    text-align:center!important;
+    justify-content:center!important;
+    padding:12px 8px!important;
+    font-size:.9rem!important;
+    line-height:1.15!important;
+    white-space:normal!important;
+  }
+}
+@media (max-width:390px){
+  .nav-links{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+</style>
 </head>
 <body class="home">
   <nav class="site-nav" aria-label="Primary navigation">
