@@ -258,6 +258,14 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
 .intro-red{color:var(--red-soft);font-weight:900}
 .intro-gold{color:var(--orange-soft);font-weight:900}
 
+
+/* Slightly smaller hero tagline for longer wording */
+@media (max-width:720px){
+  .hero h1{
+    font-size:clamp(2.05rem,10vw,3.25rem);
+  }
+}
+
 </style>
 </head>
 <body class="home">
@@ -274,7 +282,7 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
     <section class="section hero" id="about">
       <div>
         <div class="eyebrow"><span class="dot"></span> Actuarial science × pricing strategy × commercial analytics</div>
-        <h1><span class="gradient-text">Turning pricing, data, and governance into measurable financial impact.</span></h1>
+        <h1><span class="gradient-text">Turning pricing, data, and governance into measurable financial impact and synergy.</span></h1>
         <p class="lead">I am a pricing and commercial analytics professional with an actuarial science background. My work deploys pricing engines, departmental automation, P&amp;L visibility for Commercial and the management team, Gross Margin Return On Investment (GMROI) logic, Actuarial capital budgeting and modelling, stochastic projection, and immunization strategies to create decision frameworks that align commercial performance with market dynamics, highlight value creation, and create <span class="intro-navy">strategic</span>, <span class="intro-red">sustainable</span> <span class="intro-gold">growth</span>.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#capabilities">Explore capabilities</a>
