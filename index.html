@@ -184,54 +184,65 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
 }
 
 
-/* About page mobile shortcut navigation */
-.home-mobile-actions{display:none}
-@media (max-width:1020px){
-  .home-nav .menu-toggle,
-  .home-nav .nav-links{
-    display:none!important;
-  }
-  .home-nav .nav-inner{
-    flex-direction:column!important;
-    align-items:flex-start!important;
-    justify-content:flex-start!important;
-    gap:16px!important;
-    padding:18px 0 20px!important;
-  }
-  .home-nav .brand-mark{
-    width:100%!important;
-    min-width:0!important;
-  }
-  .home-mobile-actions{
-    width:100%;
-    display:grid!important;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:10px;
-  }
-  .home-mobile-actions a{
-    min-height:46px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:11px 8px;
-    border-radius:999px;
-    color:#fff;
-    text-decoration:none;
-    font-weight:900;
-    font-size:.88rem;
-    line-height:1.15;
-    border:1px solid rgba(255,255,255,.18);
-    background:linear-gradient(135deg,rgba(11,114,185,.24),rgba(207,18,63,.18),rgba(245,130,32,.16));
-    box-shadow:0 0 18px rgba(56,189,248,.14);
-  }
+
+/* About page second-layer internal navigation */
+.about-second-layer{
+  width:min(var(--max),calc(100% - 34px));
+  margin:22px auto 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(10,40,76,.58),rgba(5,18,37,.72));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 18px 48px rgba(0,0,0,.20),0 0 24px rgba(56,189,248,.10);
 }
-@media (max-width:390px){
-  .home-mobile-actions{
+.about-second-layer span{
+  color:var(--muted);
+  font-size:.82rem;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-right:4px;
+}
+.about-second-layer a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:0 16px;
+  border-radius:999px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg,rgba(11,114,185,.24),rgba(207,18,63,.16),rgba(245,130,32,.14));
+  box-shadow:0 0 18px rgba(56,189,248,.12);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.about-second-layer a:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.28);
+  box-shadow:0 0 26px rgba(56,189,248,.18),0 0 30px rgba(245,130,32,.13);
+}
+@media (max-width:720px){
+  .about-second-layer{
+    width:min(100% - 28px,var(--max));
+    display:grid;
     grid-template-columns:1fr;
+    justify-content:stretch;
+    margin-top:18px;
+    padding:12px;
   }
-  .home-mobile-actions a{
-    min-height:44px;
+  .about-second-layer span{
+    text-align:center;
+    margin:0 0 2px;
+  }
+  .about-second-layer a{
+    width:100%;
   }
 }
 
@@ -243,7 +254,7 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
       <a class="brand-mark" href="index.html" aria-label="Home">
         <span class="mark">RB</span>
         <span class="brand-copy"><strong>Rayan Bashawri</strong><span>Actuarial Pricing • Commercial Analytics</span></span>
-      </a><div class="home-mobile-actions" aria-label="Primary mobile links"><a href="resume.html">Resume</a><a href="cover-letter.html">Cover Letter</a><a href="ambition.html">Ambition</a></div><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu <span class="chevron">⌄</span></button><div class="nav-links" id="site-menu"><a class="active" href="index.html">About</a><a class="" href="index.html#direction">Career Direction</a><a class="" href="index.html#capabilities">Capabilities</a><a class="" href="index.html#impact">Impact Flow</a><a class="" href="personality.html">Personality</a><a class="" href="resume.html">Resume</a><a class="" href="cover-letter.html">Cover Letter</a><a class="" href="ambition.html">Ambition</a></div>
+      </a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu <span class="chevron">⌄</span></button><div class="nav-links" id="site-menu"><a class="active" href="index.html">About</a><a class="" href="resume.html">Resume</a><a class="" href="cover-letter.html">Cover Letter</a><a class="" href="personality.html">Personality</a><a class="" href="ambition.html">Ambition</a></div>
     </div>
   </nav>
   <main>
@@ -272,6 +283,14 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
         </div>
       </aside>
     </section>
+
+    
+    <nav class="about-second-layer" aria-label="About page sections">
+      <span>Explore About</span>
+      <a href="#direction">Career Direction</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#impact">Impact Flow</a>
+    </nav>
 
     <section class="section tight">
       <div class="section-head"><div><div class="kicker">About me</div><h2>A technical profile built for business decisions.</h2></div></div>
