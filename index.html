@@ -266,6 +266,46 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
   }
 }
 
+
+/* Worked in 3 sectors popup */
+.sector-stat{position:relative;cursor:help;overflow:visible!important}
+.sector-popup{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 12px);
+  transform:translateX(-50%) translateY(8px) scale(.98);
+  width:min(250px,78vw);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  z-index:80;
+  padding:14px 15px;
+  border-radius:18px;
+  text-align:left;
+  color:#dfeeff;
+  background:linear-gradient(145deg,rgba(3,14,29,.98),rgba(8,39,72,.98));
+  border:1px solid rgba(255,255,255,.20);
+  box-shadow:0 22px 55px rgba(0,0,0,.42),0 0 32px rgba(11,114,185,.18),0 0 34px rgba(207,18,63,.12);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+}
+.sector-popup strong{display:block;margin-bottom:8px;color:#fff;font-size:.9rem}
+.sector-popup ol{margin:0;padding-left:20px;color:#bdd0e5;font-weight:750;line-height:1.75}
+.sector-stat:hover .sector-popup,.sector-stat:focus-within .sector-popup{
+  opacity:1;
+  visibility:visible;
+  transform:translateX(-50%) translateY(0) scale(1);
+}
+@media (max-width:720px){
+  .sector-popup{
+    left:0;
+    right:auto;
+    transform:translateY(8px) scale(.98);
+  }
+  .sector-stat:hover .sector-popup,.sector-stat:focus-within .sector-popup{
+    transform:translateY(0) scale(1);
+  }
+}
+
 </style>
 </head>
 <body class="home">
@@ -295,7 +335,17 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
         <h2>Rayan Bashawri</h2>
         <p class="role">Data Analyst, EMEA Pricing • Actuarial Pricing &amp; Commercial Analytics • Jeddah, Saudi Arabia</p>
         <div class="stats" aria-label="Professional focus areas">
-          <div class="stat"><strong>3</strong><span>Sectors</span></div>
+          <div class="stat sector-stat" tabindex="0">
+            <strong>3</strong><span>Worked in 3 sectors</span>
+            <div class="sector-popup" role="tooltip">
+              <strong>Worked in 3 sectors</strong>
+              <ol>
+                <li>Insurance</li>
+                <li>Retail (FMCG)</li>
+                <li>Oil &amp; Energy</li>
+              </ol>
+            </div>
+          </div>
           <div class="stat"><strong>EMEA</strong><span>Pricing scope</span></div>
           <div class="stat"><strong>360°</strong><span>Business view</span></div>
         </div>
@@ -363,9 +413,9 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
     <section class="section">
       <div class="section-head"><div><div class="kicker">Experience foundation</div><h2>Built across insurance, retail, and energy.</h2></div></div>
       <div class="timeline">
-        <article class="timeline-item experience-hover-card" tabindex="0" data-role="EMEA pricing and commercial analytics" data-responsibilities="Drive pricing strategy development and margin forecasting across EMEA.||Design and deploy pricing engines that improve pricing structure and margin realization.||Analyze price, cost, rebate, and mix movement to identify value leakage and profitability opportunities.||Bridge Sales, Supply Chain, Marketing, Finance, and Commercial teams around the same pricing logic.||Build executive visibility around market reactions, portfolio movement, and sustainable growth opportunities."><div class="timeline-date">2025 – Current</div><div><h3>EMEA pricing and commercial analytics</h3><p>Pricing strategy, margin forecasting, pricing engines, market reactions, GMROI thinking, and cross functional visibility across Finance, Sales, Supply Chain, and Commercial teams.</p><span class="hover-note">Hover to view responsibilities</span></div></article>
-        <article class="timeline-item experience-hover-card" tabindex="0" data-role="Retail commercial and financial analytics" data-responsibilities="Build, sustain, and develop Power BI dashboards for commercial performance monitoring.||Prepare weekly promotional performance and execution analysis for executive review.||Use R and analytical models for pricing, forecasting, promotion planning, and elasticity insight.||Automate department workflows using Power BI, Python, SQL, Databricks, and structured data flows.||Monitor supply chain, marketing, operations, and commercial execution to highlight gaps and opportunities."><div class="timeline-date">2023 – 2025</div><div><h3>Retail commercial and financial analytics</h3><p>Power BI platforms, promotion execution visibility, price elasticity modelling, workflow automation, aged stock visibility, and executive performance monitoring.</p><span class="hover-note">Hover to view responsibilities</span></div></article>
-        <article class="timeline-item experience-hover-card" tabindex="0" data-role="Insurance actuarial and underwriting foundation" data-responsibilities="Create dashboards to monitor corporate client loss ratios and underwriting performance.||Develop corporate motor pricing tools using VBA to support underwriting decisions.||Automate claims experience entry from Excel into company systems using Python.||Build monthly financial and underwriting loss ratio reports.||Construct IBNR tables and perform frequency and severity analysis to monitor motor claims trends."><div class="timeline-date">2021 – 2023</div><div><h3>Insurance actuarial and underwriting foundation</h3><p>Loss ratio reporting, corporate motor pricing tools, claims experience automation, reserving support, IBNR tables, and frequency and severity analysis.</p><span class="hover-note">Hover to view responsibilities</span></div></article>
+        <article class="timeline-item experience-hover-card" tabindex="0" data-role="Valvoline by Aramco (Aramco Lubricant and Retail)" data-responsibilities="Drive pricing strategy development and margin forecasting across EMEA.||Design and deploy pricing engines that improve pricing structure and margin realization.||Analyze price, cost, rebate, and mix movement to identify value leakage and profitability opportunities.||Bridge Sales, Supply Chain, Marketing, Finance, and Commercial teams around the same pricing logic.||Build executive visibility around market reactions, portfolio movement, and sustainable growth opportunities."><div class="timeline-date">2025 – Current</div><div><h3>Valvoline by Aramco (Aramco Lubricant and Retail)</h3><p>Pricing strategy, margin forecasting, pricing engines, market reactions, GMROI thinking, and cross functional visibility across Finance, Sales, Supply Chain, and Commercial teams.</p><span class="hover-note">Hover to view responsibilities</span></div></article>
+        <article class="timeline-item experience-hover-card" tabindex="0" data-role="Savola Panda Retail" data-responsibilities="Build, sustain, and develop Power BI dashboards for commercial performance monitoring.||Prepare weekly promotional performance and execution analysis for executive review.||Use R and analytical models for pricing, forecasting, promotion planning, and elasticity insight.||Automate department workflows using Power BI, Python, SQL, Databricks, and structured data flows.||Monitor supply chain, marketing, operations, and commercial execution to highlight gaps and opportunities."><div class="timeline-date">2023 – 2025</div><div><h3>Savola Panda Retail</h3><p>Power BI platforms, promotion execution visibility, price elasticity modelling, workflow automation, aged stock visibility, and executive performance monitoring.</p><span class="hover-note">Hover to view responsibilities</span></div></article>
+        <article class="timeline-item experience-hover-card" tabindex="0" data-role="Wataniya Insurance Company" data-responsibilities="Create dashboards to monitor corporate client loss ratios and underwriting performance.||Develop corporate motor pricing tools using VBA to support underwriting decisions.||Automate claims experience entry from Excel into company systems using Python.||Build monthly financial and underwriting loss ratio reports.||Construct IBNR tables and perform frequency and severity analysis to monitor motor claims trends."><div class="timeline-date">2021 – 2023</div><div><h3>Wataniya Insurance Company</h3><p>Loss ratio reporting, corporate motor pricing tools, claims experience automation, reserving support, IBNR tables, and frequency and severity analysis.</p><span class="hover-note">Hover to view responsibilities</span></div></article>
       </div>
     </section>
 
