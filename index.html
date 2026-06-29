@@ -267,43 +267,61 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
 }
 
 
-/* Worked in 3 sectors popup */
-.sector-stat{position:relative;cursor:help;overflow:visible!important}
-.sector-popup{
-  position:absolute;
-  left:50%;
-  bottom:calc(100% + 12px);
-  transform:translateX(-50%) translateY(8px) scale(.98);
-  width:min(250px,78vw);
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  z-index:80;
-  padding:14px 15px;
-  border-radius:18px;
-  text-align:left;
-  color:#dfeeff;
-  background:linear-gradient(145deg,rgba(3,14,29,.98),rgba(8,39,72,.98));
-  border:1px solid rgba(255,255,255,.20);
-  box-shadow:0 22px 55px rgba(0,0,0,.42),0 0 32px rgba(11,114,185,.18),0 0 34px rgba(207,18,63,.12);
-  transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+
+/* Sectors list stat */
+.stat.sectors-list strong{
+  font-size:1.05rem;
+  letter-spacing:.02em;
 }
-.sector-popup strong{display:block;margin-bottom:8px;color:#fff;font-size:.9rem}
-.sector-popup ol{margin:0;padding-left:20px;color:#bdd0e5;font-weight:750;line-height:1.75}
-.sector-stat:hover .sector-popup,.sector-stat:focus-within .sector-popup{
-  opacity:1;
-  visibility:visible;
-  transform:translateX(-50%) translateY(0) scale(1);
+.stat.sectors-list span{
+  line-height:1.35;
+  font-size:.8rem;
 }
-@media (max-width:720px){
-  .sector-popup{
-    left:0;
-    right:auto;
-    transform:translateY(8px) scale(.98);
-  }
-  .sector-stat:hover .sector-popup,.sector-stat:focus-within .sector-popup{
-    transform:translateY(0) scale(1);
-  }
+
+
+/* Cross functional exposure stat */
+.stat.cross-functional-exposure strong{
+  font-size:1rem;
+  letter-spacing:.02em;
+}
+.stat.cross-functional-exposure span{
+  line-height:1.35;
+  font-size:.72rem;
+}
+
+
+/* Profile stat alignment improvements */
+.profile-card .stats{
+  align-items:stretch;
+}
+.profile-card .stat{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:center;
+  min-height:170px;
+}
+.profile-card .stat strong{
+  display:block;
+  width:100%;
+  margin-bottom:10px;
+}
+.profile-card .stat span{
+  display:block;
+  width:100%;
+  line-height:1.4;
+}
+.profile-card .stat.pricing-scope-stat strong{
+  font-size:1rem;
+}
+.profile-card .stat.pricing-scope-stat span{
+  font-size:.84rem;
+  line-height:1.45;
+}
+.profile-card .stat.cross-functional-exposure span{
+  font-size:.79rem;
+  line-height:1.4;
 }
 
 </style>
@@ -335,19 +353,9 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
         <h2>Rayan Bashawri</h2>
         <p class="role">Data Analyst, EMEA Pricing • Actuarial Pricing &amp; Commercial Analytics • Jeddah, Saudi Arabia</p>
         <div class="stats" aria-label="Professional focus areas">
-          <div class="stat sector-stat" tabindex="0">
-            <strong>3</strong><span>Worked in 3 sectors</span>
-            <div class="sector-popup" role="tooltip">
-              <strong>Worked in 3 sectors</strong>
-              <ol>
-                <li>Insurance</li>
-                <li>Retail (FMCG)</li>
-                <li>Oil &amp; Energy</li>
-              </ol>
-            </div>
-          </div>
-          <div class="stat"><strong>EMEA</strong><span>Pricing scope</span></div>
-          <div class="stat"><strong>360°</strong><span>Business view</span></div>
+          <div class="stat sectors-list"><strong>Sectors</strong><span>Insurance<br>FMCG<br>Energy</span></div>
+          <div class="stat pricing-scope-stat"><strong>Pricing scope</strong><span>Europe, Middle East, Africa</span></div>
+          <div class="stat cross-functional-exposure"><strong>Cross functional exposure</strong><span>Executives, Finance, Pricing, Strategy, Sales, Supply Chain, Marketing, Excellence</span></div>
         </div>
       </aside>
     </section>
