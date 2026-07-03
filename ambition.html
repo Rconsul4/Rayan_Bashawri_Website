@@ -197,6 +197,25 @@ main{position:relative}.section{width:min(var(--max),calc(100% - 34px));margin:0
   .brand-copy span{font-size:.74rem!important;}
 }
 
+
+/* Reduce extra gap in the ambition anchor panel */
+.ambition-anchor-panel{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start !important;
+  align-self:start;
+  gap:16px;
+}
+.ambition-anchor-panel > div:first-child{
+  margin-bottom:0 !important;
+}
+.ambition-anchor-panel p{
+  margin-bottom:0 !important;
+}
+.ambition-signal{
+  margin-top:0 !important;
+}
+
 </style>
 </head>
 <body>
